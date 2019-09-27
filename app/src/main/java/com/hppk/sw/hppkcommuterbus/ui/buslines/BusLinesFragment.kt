@@ -1,4 +1,4 @@
-package com.hppk.sw.hppkcommuterbus.ui.busline
+package com.hppk.sw.hppkcommuterbus.ui.buslines
 
 
 import android.os.Bundle
