@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.hppk.sw.hppkcommuterbus.R
-import com.hppk.sw.hppkcommuterbus.const.DAUM_MAPS_ANDROID_APP_API_KEY
 import kotlinx.android.synthetic.main.fragment_map.*
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
 class MapFragment : Fragment() {
+
+    private val mapView: MapView by lazy { MapView(activity) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,9 +28,6 @@ class MapFragment : Fragment() {
     }
 
     private fun showSample() {
-        val mapView = MapView(activity)
-        mapView.setDaumMapApiKey(DAUM_MAPS_ANDROID_APP_API_KEY)
-
         val mapPoint = MapPoint.mapPointWithGeoCoord(37.394365, 127.110520)
         mapView.setMapCenterPoint(mapPoint, true)
         //true면 앱 실행 시 애니메이션 효과가 나오고 false면 애니메이션이 나오지않음.
