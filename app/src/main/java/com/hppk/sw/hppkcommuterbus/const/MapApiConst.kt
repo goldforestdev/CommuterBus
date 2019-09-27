@@ -1,3 +1,3 @@
 package com.hppk.sw.hppkcommuterbus.const
 
-const val DAUM_MAPS_ANDROID_APP_API_KEY = "adbefa48b1d614f23d8f04f9aeb4a24e"
+const val DAUM_MAPS_ANDROID_APP_API_KEY = "397f6605753c6e11dd0484f23dcba8ca"

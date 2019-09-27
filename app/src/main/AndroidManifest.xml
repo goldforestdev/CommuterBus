@@ -2,12 +2,20 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.hppk.sw.hppkcommuterbus">
 
+    <meta-data
+        android:name="com.kakao.sdk.AppKey"
+        android:value="397f6605753c6e11dd0484f23dcba8ca"/>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
@@ -19,11 +27,4 @@
         <activity android:name=".MainActivity">
         </activity>
     </application>
-    <meta-data
-        android:name="com.kakao.sdk.AppKey"
-        android:value="adbefa48b1d614f23d8f04f9aeb4a24e" />
-
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
 </manifest>
