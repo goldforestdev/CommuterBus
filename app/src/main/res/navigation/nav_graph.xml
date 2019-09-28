@@ -20,9 +20,4 @@
         android:name="com.hppk.sw.hppkcommuterbus.ui.mypage.MyPageFragment"
         android:label="fragment_my_page"
         tools:layout="@layout/fragment_my_page" />
-    <fragment
-        android:id="@+id/lineDetailsFragment"
-        android:name="com.hppk.sw.hppkcommuterbus.ui.buslines.details.LineDetailsFragment"
-        android:label="fragment_line_details"
-        tools:layout="@layout/fragment_line_details" />
 </navigation>
