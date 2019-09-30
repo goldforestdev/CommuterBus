@@ -1,8 +1,8 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import kotlinx.android.synthetic.main.activity_line_details.*
@@ -25,11 +25,18 @@ class LineDetailsActivity : AppCompatActivity() {
         }
 
         val busLine = intent.getParcelableExtra<BusLine>(BUS_LINE)
-        showBusLine(busLine)
+        initBusLineMap(busLine)
+        initBusLineList(busLine)
+
         mapContainer.addView(mapView)
     }
 
-    private fun showBusLine(busLine: BusLine) {
+    private fun initBusLineList(busLine: BusLine) {
+        rvBusStops.adapter = BusStopsAdapter(busLine.busStops)
+        rvBusStops.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun initBusLineMap(busLine: BusLine) {
         val polyline = MapPolyline()
         polyline.tag = 1000
         polyline.lineColor = resources.getColor(R.color.colorAccent)
