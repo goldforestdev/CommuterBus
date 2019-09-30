@@ -18,7 +18,7 @@
             android:name="com.kakao.sdk.AppKey"
             android:value="397f6605753c6e11dd0484f23dcba8ca" />
 
-        <activity android:name=".ui.buslines.details.LineDetailsActivity"></activity>
+        <activity android:name=".ui.details.LineDetailsActivity"></activity>
         <activity android:name=".ui.splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
