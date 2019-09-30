@@ -23,8 +23,8 @@ class BusStopsAdapter (
         holder.itemView.tvTime.text = busStop.time
 
         when(position) {
-            0 -> holder.itemView.viewTopBar.visibility = View.GONE
-            busStops.size - 1 -> holder.itemView.viewBottomBar.visibility = View.GONE
+            0 -> holder.itemView.viewTopBar.visibility = View.INVISIBLE
+            busStops.size - 1 -> holder.itemView.viewBottomBar.visibility = View.INVISIBLE
         }
     }
 
