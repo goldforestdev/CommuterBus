@@ -1,21 +1,24 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
 import android.os.Bundle
-import android.widget.LinearLayout
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
+import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import kotlinx.android.synthetic.main.activity_line_details.*
 import net.daum.mf.map.api.*
 
 
 const val BUS_LINE = "busline"
 
-class LineDetailsActivity : AppCompatActivity() {
+class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickListener {
 
     private val mapView: MapView by lazy { MapView(this) }
+    private val behavior: BottomSheetBehavior<ConstraintLayout> by lazy { BottomSheetBehavior.from(bottomSheet) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +37,7 @@ class LineDetailsActivity : AppCompatActivity() {
     }
 
     private fun initBusLineList(busLine: BusLine) {
-        rvBusStops.adapter = BusStopsAdapter(busLine.busStops)
+        rvBusStops.adapter = BusStopsAdapter(busLine.busStops, this)
         rvBusStops.layoutManager = LinearLayoutManager(this)
     }
 
@@ -63,6 +66,25 @@ class LineDetailsActivity : AppCompatActivity() {
         val mapPointBounds = MapPointBounds(polyline.mapPoints)
         val padding = 200
         mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding))
+    }
+
+    override fun onBusStopClicked(busStop: BusStop) {
+        if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
+            behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
+        }
+
+        mapView.poiItems.first {
+            it.itemName == busStop.name
+        }.let {
+            mapView.selectPOIItem(it, true)
+
+            val lat = if (behavior.state == BottomSheetBehavior.STATE_COLLAPSED) {
+                busStop.lat
+            } else {
+                busStop.lat - 0.05
+            }
+            mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, busStop.lng), true)
+        }
     }
 
 }

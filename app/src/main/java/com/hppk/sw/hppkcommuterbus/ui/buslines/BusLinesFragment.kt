@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
@@ -26,7 +25,7 @@ class BusLinesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         btnTemp.setOnClickListener {
-            val busLine = BusLine(
+            val tempBusLine = BusLine(
                 id = "Bus Line 6",
                 name = "Bus Line 6",
                 nameKr = "버스 노선 6",
@@ -38,8 +37,10 @@ class BusLinesFragment : Fragment() {
                     BusStop("HP", "HP", "8:17", 37.394306, 127.110189)
                 )
             )
-            startActivity(Intent(context, LineDetailsActivity::class.java)
-                .putExtra(BUS_LINE, busLine))
+            startActivity(
+                Intent(context, LineDetailsActivity::class.java)
+                    .putExtra(BUS_LINE, tempBusLine)
+            )
         }
     }
 
