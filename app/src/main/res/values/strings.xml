@@ -6,4 +6,6 @@
     <string name="bus_lines">Bus Lines</string>
     <string name="map">Map</string>
     <string name="my_page">My Page</string>
+    <string name="permission_required">Permission Required</string>
+    <string name="permission_required_message">Location access permission is needed.</string>
 </resources>
