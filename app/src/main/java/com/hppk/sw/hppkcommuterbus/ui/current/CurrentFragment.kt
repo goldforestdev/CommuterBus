@@ -1,4 +1,4 @@
-package com.hppk.sw.hppkcommuterbus.ui.map
+package com.hppk.sw.hppkcommuterbus.ui.current
 
 
 import android.os.Bundle
@@ -12,7 +12,7 @@ import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
-class MapFragment : Fragment() {
+class CurrentFragment : Fragment() {
 
     private val mapView: MapView by lazy { MapView(activity) }
 
