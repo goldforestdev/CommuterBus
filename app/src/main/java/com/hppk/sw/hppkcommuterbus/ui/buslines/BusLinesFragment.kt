@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
+import com.hppk.sw.hppkcommuterbus.firebase.FireBaseDatabase
 import com.hppk.sw.hppkcommuterbus.ui.details.BUS_LINE
 import com.hppk.sw.hppkcommuterbus.ui.details.LineDetailsActivity
 import kotlinx.android.synthetic.main.fragment_bus_lines.*
@@ -37,6 +38,8 @@ class BusLinesFragment : Fragment() {
                     BusStop("HP", "HP", "8:17", 37.394306, 127.110189)
                 )
             )
+
+            FireBaseDatabase.getInstance().postFireBaseDatabase(tempBusLine)
             startActivity(
                 Intent(context, LineDetailsActivity::class.java)
                     .putExtra(BUS_LINE, tempBusLine)
