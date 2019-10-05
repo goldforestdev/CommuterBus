@@ -3,19 +3,18 @@ package com.hppk.sw.hppkcommuterbus.firebase
 import com.google.firebase.database.FirebaseDatabase
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 
-class FireBaseDatabase {
+class FireBaseDB {
     private val database = FirebaseDatabase.getInstance()
     private val ref = database.reference
 
     companion object {
 
-        private val TAG = "FireBaseDatabase"
-        @Volatile private var INSTANCE: FireBaseDatabase? = null
+        private val TAG = "FireBaseDB"
+        @Volatile private var INSTANCE: FireBaseDB? = null
 
-
-        fun getInstance(): FireBaseDatabase  =
+        fun getInstance(): FireBaseDB  =
             INSTANCE ?: synchronized(this) {
-                INSTANCE ?:FireBaseDatabase().also { INSTANCE = it }
+                INSTANCE ?:FireBaseDB().also { INSTANCE = it }
             }
 
     }
