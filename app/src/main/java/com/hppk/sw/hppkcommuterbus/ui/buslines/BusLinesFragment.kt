@@ -29,8 +29,8 @@ class BusLinesFragment : Fragment(), BusLinesContract.View {
         btnTemp.setOnClickListener {
             val tempBusLine = BusLine(
                 id = "Bus Line 6",
-                name = "Bus Line 6",
-                nameKr = "버스 노선 6",
+                name = "Suwon Line 6",
+                nameKr = "수원 6 노선",
                 busStops = listOf(
                     BusStop("한솔아파트", "한솔아파트", "7:40", 37.236318, 127.025801),
                     BusStop("권곡사거리", "권곡사거리", "7:43", 37.246661, 127.032351),
@@ -41,15 +41,12 @@ class BusLinesFragment : Fragment(), BusLinesContract.View {
             )
 
             val tempBusLine2= BusLine(
-                id = "Bus Line 6-1",
-                name = "Bus Line 6-1",
-                nameKr = "버스 노선 6-1",
+                id = "Bus Line 7",
+                name = "Direct route(Suwon Line 7)",
+                nameKr = "직통노선(수원7)",
                 busStops = listOf(
-                    BusStop("한솔아파트", "한솔아파트", "7:40", 37.236318, 127.025801),
-                    BusStop("권곡사거리", "권곡사거리", "7:43", 37.246661, 127.032351),
-                    BusStop("경기소방본부", "경기소방본부", "7:45", 37.254801, 127.036062),
-                    BusStop("경기대 후문사거리", "경기대 후문사거리", "7:55", 37.296800, 127.040927),
-                    BusStop("HP", "HP", "8:17", 37.394306, 127.110189)
+                    BusStop("뉴코아 아울렛 동수원점", "뉴코아 아울렛 동수원점", "7:40", 37.236318, 127.025801),
+                    BusStop("HP", "HP", "8:35", 37.394306, 127.110189)
                 )
             )
 
