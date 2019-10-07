@@ -6,7 +6,9 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusLineNotFoundExceptions
+import com.hppk.sw.hppkcommuterbus.data.model.BusLineSaveFailedExceptions
 import com.hppk.sw.hppkcommuterbus.data.repository.source.BusLineDataSource
+import io.reactivex.Completable
 import io.reactivex.Single
 
 class FirebaseBusLineDao(
@@ -51,4 +53,19 @@ class FirebaseBusLineDao(
                 }
             })
     }
+
+    override fun save(busLine: BusLine): Completable = Completable.create { emitter ->
+        database.reference
+            .child("bus-line")
+            .child(busLine.id)
+            .setValue(busLine)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    emitter.onComplete()
+                } else {
+                    emitter.onError(BusLineSaveFailedExceptions("Saving BusLine [${busLine.id}] is failed"))
+                }
+            }
+    }
+
 }
