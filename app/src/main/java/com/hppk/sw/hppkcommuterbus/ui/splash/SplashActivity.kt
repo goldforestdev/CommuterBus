@@ -14,6 +14,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.data.model.BusLine
+import com.hppk.sw.hppkcommuterbus.ui.KEY_BUS_LINES
 import com.hppk.sw.hppkcommuterbus.ui.MainActivity
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -21,7 +23,9 @@ import java.security.NoSuchAlgorithmException
 
 private const val PERMISSION_REQUEST_CODE = 1200
 
-class SplashActivity : AppCompatActivity() {
+class SplashActivity : AppCompatActivity(), SplashContract.View {
+
+    private val presenter : SplashContract.Presenter by lazy { SplashPresenter(this) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +33,7 @@ class SplashActivity : AppCompatActivity() {
         setContentView(R.layout.activity_spalsh)
 
         if (hasPermission()) {
-            moveToMainActivity()
+            presenter.getBusLines()
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 requestPermissions(
@@ -38,8 +42,12 @@ class SplashActivity : AppCompatActivity() {
                 )
             }
         }
-
 //        printHashKey() // TODO: for debug
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter.unsubscribe()
     }
 
     private fun hasPermission() = ContextCompat.checkSelfPermission(
@@ -57,30 +65,31 @@ class SplashActivity : AppCompatActivity() {
         when (requestCode) {
             PERMISSION_REQUEST_CODE -> {
                 if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    moveToMainActivity()
+                    presenter.getBusLines()
                 } else {
-                    showDyingMessage()
+                    onError(R.string.permission_required, R.string.permission_required_message)
                 }
             }
         }
     }
 
-    private fun moveToMainActivity(millisecond: Long = 2200) {
-        Handler().postDelayed({
-            val intent = Intent(this@SplashActivity, MainActivity::class.java)
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NO_ANIMATION)
-            startActivity(intent)
-            finish()
-        }, millisecond)
-    }
-
-    private fun showDyingMessage() {
+    override fun onError(errTitle: Int, errMsg: Int) {
         AlertDialog.Builder(this)
-            .setTitle(R.string.permission_required)
-            .setMessage(R.string.permission_required_message)
+            .setTitle(errTitle)
+            .setMessage(errMsg)
             .setPositiveButton(android.R.string.ok) { _, _ -> finish() }
             .setOnDismissListener { finish() }
             .show()
+    }
+
+    override fun onBusLinesLoaded(busLines: List<BusLine>) {
+        Handler().postDelayed({
+            val intent = Intent(this@SplashActivity, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NO_ANIMATION)
+            intent.putExtra(KEY_BUS_LINES, busLines.toTypedArray())
+            startActivity(intent)
+            finish()
+        }, 2000)
     }
 
     private fun printHashKey() {

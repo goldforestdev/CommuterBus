@@ -12,4 +12,6 @@
     <string name="msg_not_found_bus_stops">There are no bus stops in a 500m.</string>
     <string name="msg_found_bus_stops">There are %1$d bus stops in a 500m.</string>
     <string name="current_location">Current Location</string>
+    <string name="err_failed_to_get_bus_lines">Failed to get bus lines</string>
+    <string name="unexpected_error">Unexpected error</string>
 </resources>
