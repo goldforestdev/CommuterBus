@@ -7,6 +7,5 @@ interface BusLinesContract {
     }
 
     interface Presenter {
-
     }
 }

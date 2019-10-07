@@ -24,7 +24,6 @@ class MainActivity : AppCompatActivity() {
         get() = busLineDBData
 
     companion object {
-
         private val TAG = this::class.java.simpleName
     }
 
