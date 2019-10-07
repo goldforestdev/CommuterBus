@@ -8,4 +8,7 @@
     <string name="my_page">My Page</string>
     <string name="permission_required">Permission Required</string>
     <string name="permission_required_message">Location access permission is needed.</string>
+    <string name="msg_not_found_bus_stops">There are no bus stops in a 500m.</string>
+    <string name="msg_found_bus_stops">There are %1$d bus stops in a 500m.</string>
+    <string name="current_location">Current Location</string>
 </resources>
