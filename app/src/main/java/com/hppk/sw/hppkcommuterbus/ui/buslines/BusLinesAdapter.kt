@@ -13,14 +13,17 @@ import kotlinx.android.synthetic.main.item_bus_list.view.*
 
 class BusLinesAdapter(
     val busLines : MutableList<BusLine> = mutableListOf(),
-    private var context : Context? = null
+    private var context : Context? = null,
+    private val busLineClickListener : BusLineClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
         return BusLinesHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_bus_list, parent, false))
     }
 
-
+    interface BusLineClickListener {
+        fun onBusLineClick(busLine: BusLine)
+    }
 
     override fun getItemCount(): Int  = busLines.size
 
@@ -35,6 +38,9 @@ class BusLinesAdapter(
                     tvBusLineName.text = busLines[position].nameKr
                     tvBusStart.text =
                         "${busLines[position].busStops[0].nameKr} ${context!!.resources.getString(R.string.start)}"
+                }
+                itemView.setOnClickListener {
+                    busLineClickListener.onBusLineClick(busLines[position])
                 }
             }
         }
