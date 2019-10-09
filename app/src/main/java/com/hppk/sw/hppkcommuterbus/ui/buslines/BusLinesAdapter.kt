@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
-import com.hppk.sw.hppkcommuterbus.util.Utils
 import kotlinx.android.synthetic.main.item_bus_list.view.*
 
 class BusLinesAdapter(
@@ -30,7 +30,7 @@ class BusLinesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is BusLinesHolder) {
             with (holder) {
-                if (Utils.getLanguage(context!!) != "ko") {
+                if (CommuterBusApplication.language != "ko") {
                     tvBusLineName.text = busLines[position].name
                     tvBusStart.text =
                         "${busLines[position].busStops[0].name} ${context!!.resources.getString(R.string.start)}"

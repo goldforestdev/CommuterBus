@@ -25,8 +25,7 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
     private val presenter: BusLinesContract.Presenter by lazy { BusLinesPresenter() }
     private val busLinesAdapter: BusLinesAdapter by lazy { BusLinesAdapter(busLineClickListener = this) }
 
-    private val goOfficeBus : MutableList<BusLine> = mutableListOf<BusLine>()
-    private val goHomeBus : MutableList<BusLine> = mutableListOf<BusLine>()
+    private lateinit var map : Map<Type, List<BusLine>>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +43,8 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
         radioGroup.setOnCheckedChangeListener { _, i ->
             busLinesAdapter.busLines.clear()
             when (i) {
-                R.id.rbGoHome -> busLinesAdapter.busLines.addAll(goHomeBus)
-                R.id.rbGoOffice -> busLinesAdapter.busLines.addAll(goOfficeBus)
+                R.id.rbGoHome -> busLinesAdapter.busLines.addAll(map.getValue(Type.LEAVE_OFFICE))
+                R.id.rbGoOffice -> busLinesAdapter.busLines.addAll(map.getValue(Type.GO_OFFICE))
             }
             busLinesAdapter.notifyDataSetChanged()
         }
@@ -55,22 +54,14 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
         rcBusList.adapter = busLinesAdapter
         rcBusList.layoutManager = LinearLayoutManager(activity)
         busLinesAdapter.busLines.clear()
-        busLinesAdapter.busLines.addAll(goOfficeBus)
+        busLinesAdapter.busLines.addAll(map.getValue(Type.GO_OFFICE))
         busLinesAdapter.notifyDataSetChanged()
     }
 
     private fun initData () {
-        goOfficeBus.clear()
-        goHomeBus.clear()
         activity?.apply {
             if (this is MainActivity) {
-                for(data in this.busLineData) {
-                    if (data.type == Type.GO_OFFICE) {
-                        goOfficeBus.add(data)
-                    } else {
-                        goHomeBus.add(data)
-                    }
-                }
+                map = this.busLineData.groupBy { it.type }
             }
         }
     }

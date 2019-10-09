@@ -6,8 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
-import com.hppk.sw.hppkcommuterbus.util.Utils
 import kotlinx.android.synthetic.main.item_bus_stop.view.*
 
 class BusStopsAdapter (
@@ -33,7 +33,7 @@ class BusStopsAdapter (
             busStops.size - 1 -> holder.itemView.viewBottomBar.visibility = View.INVISIBLE
         }
 
-        holder.itemView.tvName.text = if (Utils.getLanguage(context!!) != "ko") {
+        holder.itemView.tvName.text = if (CommuterBusApplication.language!= "ko") {
             busStop.name
         } else {
             busStop.nameKr

@@ -1,15 +1,14 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
-import com.hppk.sw.hppkcommuterbus.util.Utils
 import kotlinx.android.synthetic.main.activity_line_details.*
 import net.daum.mf.map.api.*
 
@@ -56,7 +55,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         mapView.addPOIItems(
             busLine.busStops.map { busStop ->
                 MapPOIItem().apply {
-                    itemName = if (Utils.getLanguage(this@LineDetailsActivity) != "ko") {
+                    itemName = if (CommuterBusApplication.language != "ko") {
                         busStop.name
                     } else {
                         busStop.nameKr
