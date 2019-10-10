@@ -58,6 +58,9 @@ dependencies {
     // Lottie
     implementation "com.airbnb.android:lottie:3.0.7"
 
+    //Gson
+    implementation 'com.google.code.gson:gson:2.8.5'
+
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'

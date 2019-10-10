@@ -14,9 +14,10 @@ import kotlinx.android.synthetic.main.item_bus_list.view.*
 
 class BusLinesAdapter(
     val busLines : MutableList<BusLine> = mutableListOf(),
-    private val favorites : MutableList<String> = mutableListOf(),
+    val favorites : MutableList<String> = mutableListOf(),
     private var context : Context? = null,
-    private val busLineClickListener : BusLineClickListener
+    private val busLineClickListener : BusLineClickListener,
+    private val busFavoritesClickListener : BusFavoritesClickLister
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
@@ -25,6 +26,10 @@ class BusLinesAdapter(
 
     interface BusLineClickListener {
         fun onBusLineClick(busLine: BusLine)
+    }
+
+    interface BusFavoritesClickLister {
+        fun onBusFavoritesClick(busLine: BusLine)
     }
 
     override fun getItemCount(): Int  = busLines.size
@@ -48,9 +53,15 @@ class BusLinesAdapter(
                 if (favorites.contains(busLines[position].id) ) {
                     ivStar.setImageDrawable(context!!.resources.getDrawable(android.R.drawable.star_big_on
                         , context!!.applicationContext.theme))
+                    ivStar.tag = android.R.drawable.star_big_on
                 } else {
                     ivStar.setImageDrawable(context!!.resources.getDrawable(android.R.drawable.star_big_off
                         , context!!.applicationContext.theme))
+                    ivStar.tag = android.R.drawable.star_big_off
+                }
+
+                ivStar.setOnClickListener {
+                    busFavoritesClickListener.onBusFavoritesClick(busLines[position])
                 }
             }
         }

@@ -1,5 +1,6 @@
 package com.hppk.sw.hppkcommuterbus.application
 
+import android.content.Context
 import android.os.Build
 import androidx.multidex.MultiDexApplication
 import java.util.*
@@ -8,6 +9,16 @@ class CommuterBusApplication : MultiDexApplication () {
 
     companion object {
         var language : String ? = null
+
+        private var instance: CommuterBusApplication? = null
+
+        fun applicationContext(): Context {
+            return instance!!.applicationContext
+        }
+    }
+
+    init {
+        instance = this
     }
 
     override fun onCreate() {
