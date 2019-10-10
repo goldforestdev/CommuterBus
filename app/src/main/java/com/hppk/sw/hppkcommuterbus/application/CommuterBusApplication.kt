@@ -24,4 +24,5 @@ class CommuterBusApplication : MultiDexApplication () {
         return locale.language
     }
 
+
 }

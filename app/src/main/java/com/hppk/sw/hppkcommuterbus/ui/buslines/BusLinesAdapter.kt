@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
@@ -13,6 +14,7 @@ import kotlinx.android.synthetic.main.item_bus_list.view.*
 
 class BusLinesAdapter(
     val busLines : MutableList<BusLine> = mutableListOf(),
+    private val favorites : MutableList<String> = mutableListOf(),
     private var context : Context? = null,
     private val busLineClickListener : BusLineClickListener
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -42,6 +44,14 @@ class BusLinesAdapter(
                 itemView.setOnClickListener {
                     busLineClickListener.onBusLineClick(busLines[position])
                 }
+
+                if (favorites.contains(busLines[position].id) ) {
+                    ivStar.setImageDrawable(context!!.resources.getDrawable(android.R.drawable.star_big_on
+                        , context!!.applicationContext.theme))
+                } else {
+                    ivStar.setImageDrawable(context!!.resources.getDrawable(android.R.drawable.star_big_off
+                        , context!!.applicationContext.theme))
+                }
             }
         }
     }
@@ -53,5 +63,6 @@ class BusLinesAdapter(
     class BusLinesHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val tvBusLineName : TextView = itemView.tvBusLineName
         val tvBusStart : TextView = itemView.tvBusStart
+        val ivStar : ImageView = itemView.ivStar
     }
 }
