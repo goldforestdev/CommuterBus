@@ -1,12 +1,12 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import kotlinx.android.synthetic.main.activity_line_details.*
@@ -37,7 +37,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
     }
 
     private fun initBusLineList(busLine: BusLine) {
-        rvBusStops.adapter = BusStopsAdapter(busLine.busStops, this)
+        rvBusStops.adapter = BusStopsAdapter(busLine.busStops, context = this, clickListener = this)
         rvBusStops.layoutManager = LinearLayoutManager(this)
     }
 
@@ -55,7 +55,12 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         mapView.addPOIItems(
             busLine.busStops.map { busStop ->
                 MapPOIItem().apply {
-                    itemName = busStop.name
+                    itemName = if (CommuterBusApplication.language != "ko") {
+                        busStop.name
+                    } else {
+                        busStop.nameKr
+                    }
+
                     mapPoint = MapPoint.mapPointWithGeoCoord(busStop.lat, busStop.lng)
                     markerType = MapPOIItem.MarkerType.BluePin
                     selectedMarkerType = MapPOIItem.MarkerType.RedPin

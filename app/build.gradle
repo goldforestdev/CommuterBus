@@ -12,6 +12,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.hppk.sw.hppkcommuterbus"
+        multiDexEnabled true
         minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
@@ -36,6 +37,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'com.android.support:multidex:1.0.3'
 
     // Play Services
     implementation 'com.google.android.gms:play-services-location:17.0.0'

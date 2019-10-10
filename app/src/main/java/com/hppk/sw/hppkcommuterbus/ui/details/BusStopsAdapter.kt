@@ -1,15 +1,18 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import kotlinx.android.synthetic.main.item_bus_stop.view.*
 
 class BusStopsAdapter (
     private val busStops: List<BusStop> = listOf(),
+    private var context : Context? = null,
     private val clickListener: BusStopClickListener
 ): RecyclerView.Adapter<BusStopsAdapter.BusStopHolder> () {
 
@@ -30,7 +33,12 @@ class BusStopsAdapter (
             busStops.size - 1 -> holder.itemView.viewBottomBar.visibility = View.INVISIBLE
         }
 
-        holder.itemView.tvName.text = busStop.name
+        holder.itemView.tvName.text = if (CommuterBusApplication.language!= "ko") {
+            busStop.name
+        } else {
+            busStop.nameKr
+        }
+
         holder.itemView.tvTime.text = busStop.time
 
         holder.itemView.setOnClickListener { clickListener.onBusStopClicked(busStop) }
