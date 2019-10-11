@@ -79,7 +79,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         }
 
         mapView.poiItems.first {
-            it.itemName == busStop.name
+            it.itemName == if (CommuterBusApplication.language =="ko") busStop.nameKr else busStop.name
         }.let {
             mapView.selectPOIItem(it, true)
 
