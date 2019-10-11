@@ -20,8 +20,7 @@ import com.hppk.sw.hppkcommuterbus.ui.details.LineDetailsActivity
 import kotlinx.android.synthetic.main.fragment_bus_lines.*
 
 class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusLineClickListener, BusLinesAdapter.BusFavoritesClickLister{
-
-    private val presenter: BusLinesContract.Presenter by lazy { BusLinesPresenter() }
+    private val presenter: BusLinesContract.Presenter by lazy { BusLinesPresenter(this) }
     private val busLinesAdapter: BusLinesAdapter by lazy { BusLinesAdapter(busLineClickListener = this, busFavoritesClickListener = this) }
     private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(activity) }
     private lateinit var map : Map<Type, List<BusLine>>
@@ -35,6 +34,10 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData()
+    }
+
+    override fun onFavoritesListLoaded(favoritesList : MutableList<String>) {
+        favoritesBusLineList = favoritesList
         initRecyclerView()
         initRadioGroup()
     }
@@ -68,7 +71,7 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
                 map = this.busLineData.groupBy { it.type }
             }
         }
-        favoritesBusLineList = FavoritesLocalDataSource.loadFavoriteID(pref)
+        presenter.loadRecent(pref)
     }
 
     override fun onBusLineClick(busLine: BusLine) {
