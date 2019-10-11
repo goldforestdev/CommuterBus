@@ -17,4 +17,6 @@
     <string name="current_location">Current Location</string>
     <string name="err_failed_to_get_bus_lines">Failed to get bus lines</string>
     <string name="unexpected_error">Unexpected error</string>
+    <string name="hppk_bus_noti_channel_name">HPPK Commuter Bus Notification</string>
+    <string name="bus_alarm">Bus Alarm</string>
 </resources>
