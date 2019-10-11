@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
@@ -13,8 +14,10 @@ import kotlinx.android.synthetic.main.item_bus_list.view.*
 
 class BusLinesAdapter(
     val busLines : MutableList<BusLine> = mutableListOf(),
+    val favorites : MutableList<String> = mutableListOf(),
     private var context : Context? = null,
-    private val busLineClickListener : BusLineClickListener
+    private val busLineClickListener : BusLineClickListener,
+    private val busFavoritesClickListener : BusFavoritesClickLister
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
@@ -23,6 +26,10 @@ class BusLinesAdapter(
 
     interface BusLineClickListener {
         fun onBusLineClick(busLine: BusLine)
+    }
+
+    interface BusFavoritesClickLister {
+        fun onBusFavoritesClick(busLine: BusLine)
     }
 
     override fun getItemCount(): Int  = busLines.size
@@ -42,6 +49,16 @@ class BusLinesAdapter(
                 itemView.setOnClickListener {
                     busLineClickListener.onBusLineClick(busLines[position])
                 }
+
+                if (favorites.contains(busLines[position].id) ) {
+                    ivStar.setImageResource(android.R.drawable.star_big_on)
+                } else {
+                    ivStar.setImageResource(android.R.drawable.star_big_off)
+                }
+
+                ivStar.setOnClickListener {
+                    busFavoritesClickListener.onBusFavoritesClick(busLines[position])
+                }
             }
         }
     }
@@ -53,5 +70,6 @@ class BusLinesAdapter(
     class BusLinesHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val tvBusLineName : TextView = itemView.tvBusLineName
         val tvBusStart : TextView = itemView.tvBusStart
+        val ivStar : ImageView = itemView.ivStar
     }
 }

@@ -4,4 +4,7 @@
     <string name="start">출발</string>
     <string name="err_failed_to_get_bus_lines">일시적으로 버스 노선 정보를 얻어올 수 없습니다. 잠시 후 다시 시도해주세요.</string>
     <string name="unexpected_error">예기치 못한 오류 발생</string>
+    <string name="favorites">즐겨 찾기</string>
+    <string name="go_to_office">출근</string>
+    <string name="off_work">퇴근</string>
 </resources>

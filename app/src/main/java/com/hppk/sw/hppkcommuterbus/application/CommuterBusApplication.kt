@@ -8,6 +8,7 @@ class CommuterBusApplication : MultiDexApplication () {
 
     companion object {
         var language : String ? = null
+
     }
 
     override fun onCreate() {
@@ -23,5 +24,6 @@ class CommuterBusApplication : MultiDexApplication () {
         }
         return locale.language
     }
+
 
 }

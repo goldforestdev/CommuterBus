@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_marginStart="25dp"
+    android:layout_marginEnd="25dp"
     android:layout_height="wrap_content">
 
 
@@ -10,7 +12,6 @@
         android:id="@+id/tvBusLineName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="2dp"
         style="@style/TextAppearance.AppCompat.Title"
@@ -30,6 +31,15 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@id/tvBusLineName"
         tools:text="07:40" />
+
+    <ImageView
+        android:id="@+id/ivStar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:src="@android:drawable/star_big_off"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvBusLineName" />
 
     <View
         android:id="@+id/divider"
