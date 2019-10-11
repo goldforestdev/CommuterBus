@@ -2,7 +2,9 @@ package com.hppk.sw.hppkcommuterbus.ui.buslines
 
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,9 +23,9 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
 
     private val presenter: BusLinesContract.Presenter by lazy { BusLinesPresenter() }
     private val busLinesAdapter: BusLinesAdapter by lazy { BusLinesAdapter(busLineClickListener = this, busFavoritesClickListener = this) }
-
+    private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(activity) }
     private lateinit var map : Map<Type, List<BusLine>>
-    private lateinit var favoritesBusLineList : ArrayList<String>
+    private lateinit var favoritesBusLineList :MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +68,7 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
                 map = this.busLineData.groupBy { it.type }
             }
         }
-        favoritesBusLineList = FavoritesLocalDataSource.loadFavoriteID()
+        favoritesBusLineList = FavoritesLocalDataSource.loadFavoriteID(pref)
     }
 
     override fun onBusLineClick(busLine: BusLine) {
@@ -85,6 +87,6 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
         busLinesAdapter.favorites.clear()
         busLinesAdapter.favorites.addAll(favoritesBusLineList)
         busLinesAdapter.notifyDataSetChanged()
-        FavoritesLocalDataSource.saveFavoriteID(favoritesBusLineList)
+        FavoritesLocalDataSource.saveFavoriteID(pref, favoritesBusLineList)
     }
 }

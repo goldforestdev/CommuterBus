@@ -51,11 +51,9 @@ class BusLinesAdapter(
                 }
 
                 if (favorites.contains(busLines[position].id) ) {
-                    ivStar.setImageDrawable(context!!.resources.getDrawable(android.R.drawable.star_big_on
-                        , context!!.applicationContext.theme))
+                    ivStar.setImageResource(android.R.drawable.star_big_on)
                 } else {
-                    ivStar.setImageDrawable(context!!.resources.getDrawable(android.R.drawable.star_big_off
-                        , context!!.applicationContext.theme))
+                    ivStar.setImageResource(android.R.drawable.star_big_off)
                 }
 
                 ivStar.setOnClickListener {
