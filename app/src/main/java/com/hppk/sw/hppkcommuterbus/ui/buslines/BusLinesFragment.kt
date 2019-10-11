@@ -8,6 +8,7 @@ import android.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hppk.sw.hppkcommuterbus.R
@@ -26,6 +27,13 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
     private lateinit var map : Map<Type, List<BusLine>>
     private lateinit var favoritesBusLineList :MutableList<String>
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requireActivity().onBackPressedDispatcher.addCallback(this) {
+            activity?.finish()
+        }
+    }
+    
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
