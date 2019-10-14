@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">HPPK Commuter Bus</string>
+    <string name="splash_bottom_text" translatable="false">Copyright<![CDATA[ⓒ]]> 2019 SW Asset Developers.</string>
     <string name="start">start</string>
     <string name="favorites">Favorites</string>
     <string name="go_to_office">Go to work</string>
