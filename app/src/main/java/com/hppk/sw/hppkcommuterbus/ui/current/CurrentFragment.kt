@@ -1,6 +1,8 @@
 package com.hppk.sw.hppkcommuterbus.ui.current
 
 
+import android.graphics.drawable.ShapeDrawable
+import android.graphics.drawable.shapes.OvalShape
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -44,7 +46,16 @@ class CurrentFragment : Fragment(), CurrentContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setCurrentLocationView()
         presenter.getCurrentLocation()
+    }
+
+    private fun setCurrentLocationView() {
+        ivCurrent.background = ShapeDrawable(OvalShape())
+        ivCurrent.clipToOutline = true
+        ivCurrent.setOnClickListener {
+            presenter.getCurrentLocation()
+        }
     }
 
     override fun onStop() {

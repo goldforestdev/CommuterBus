@@ -3,12 +3,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.current.CurrentFragment">
+
+
 
     <RelativeLayout
         android:id="@+id/mapContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity" />
+
+    <ImageView
+        android:id="@+id/ivCurrent"
+        android:src="@drawable/selector_gps_indicator"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:layout_margin="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
