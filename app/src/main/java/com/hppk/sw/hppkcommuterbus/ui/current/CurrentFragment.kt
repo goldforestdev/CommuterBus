@@ -69,6 +69,7 @@ class CurrentFragment : Fragment(), CurrentContract.View {
         mapView.setMapCenterPoint(currentPoint, true)
 
         val circle = MapCircle(currentPoint, 500, resources.getColor(R.color.colorAccent), resources.getColor(R.color.colorAccentTransparent))
+        mapView.removeAllCircles()
         mapView.addCircle(circle)
         mapContainer.addView(mapView)
 
