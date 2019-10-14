@@ -7,9 +7,6 @@ import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.manager.NotiManager
 
 const val KEY_ALARM_MESSAGE = "KEY_ALARM_MESSAGE"
-const val KEY_ALARM_TYPE = "KEY_ALARM_TYPE"
-const val ALARM_TYPE_GO_OFFICE = 0
-const val ALARM_TYPE_GO_HOME = 1
 const val KEY_ALARM_BUS_STOP = "KEY_ALARM_BUS_STOP"
 
 class AlarmReceiver : BroadcastReceiver() {
