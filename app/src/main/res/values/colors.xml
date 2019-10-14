@@ -6,4 +6,7 @@
     <color name="colorAccentTransparent">#60f8bbd0</color>
 
     <color name="grayLight">#f0f0f0</color>
+    <color name="R31_G181_B243">#1FB5F3</color>
+    <color name="R182_G235_B255">#B6EBFF</color>
+    <color name="R255_G255_B255">#FFFFFF</color>
 </resources>
