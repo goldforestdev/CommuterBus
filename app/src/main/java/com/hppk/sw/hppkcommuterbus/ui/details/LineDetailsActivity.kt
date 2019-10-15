@@ -1,22 +1,28 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
+import android.content.SharedPreferences
 import android.os.Bundle
+import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
+import com.hppk.sw.hppkcommuterbus.data.local.AlarmLocalDataSource
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
+import com.hppk.sw.hppkcommuterbus.data.model.Type
+import com.hppk.sw.hppkcommuterbus.manager.BusAlarmManager
 import kotlinx.android.synthetic.main.activity_line_details.*
 import net.daum.mf.map.api.*
 
 
 const val BUS_LINE = "busline"
 
-class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickListener {
+class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickListener, BusStopsAdapter.BusAlarmClicklistener {
 
+    private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
     private val mapView: MapView by lazy { MapView(this) }
     private val behavior: BottomSheetBehavior<ConstraintLayout> by lazy { BottomSheetBehavior.from(bottomSheet) }
 
@@ -37,7 +43,8 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
     }
 
     private fun initBusLineList(busLine: BusLine) {
-        rvBusStops.adapter = BusStopsAdapter(busLine.busStops, context = this, clickListener = this)
+        rvBusStops.adapter = BusStopsAdapter(busLine.busStops, context = this, busType = busLine.type
+            ,clickListener = this, alarmClicklistener = this)
         rvBusStops.layoutManager = LinearLayoutManager(this)
     }
 
@@ -90,6 +97,16 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
             }
             mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(lat, busStop.lng), true)
         }
+    }
+
+    override fun onBusAlarmClicked(busType: Type,busStops: BusStop) {
+        val alarmManager = BusAlarmManager(this)
+        if (busType == Type.GO_OFFICE) {
+            alarmManager.register(152,busStops,5*60*1000,"Test")
+        } else {
+            alarmManager.register(152,busStops,"Test")
+        }
+        AlarmLocalDataSource.saveAlarm(pref)
     }
 
 }

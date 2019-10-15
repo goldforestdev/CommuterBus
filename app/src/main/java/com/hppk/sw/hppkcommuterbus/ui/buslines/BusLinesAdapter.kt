@@ -64,9 +64,6 @@ class BusLinesAdapter(
     }
 
 
-
-
-
     class BusLinesHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val tvBusLineName : TextView = itemView.tvBusLineName
         val tvBusStart : TextView = itemView.tvBusStart
