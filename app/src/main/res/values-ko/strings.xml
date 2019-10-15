@@ -20,4 +20,10 @@
 
     <string name="time_alarm_setting">버스 시간 설정(출근)</string>
     <string name="location_alarm_setting">버스 위치 설정(퇴근)</string>
+
+    <string name="five_minutes_ago">5분전</string>
+    <string name="ten_minutes_ago">10분전</string>
+    <string name="fifteen_minutes_ago">15분전</string>
+    <string name="twenty_minutes_ago">20분전</string>
+    <string name="select_bus_alarm">버스 알람 선택</string>
 </resources>

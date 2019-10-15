@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
-import androidx.navigation.fragment.findNavController
 import com.hppk.sw.hppkcommuterbus.R
 import kotlinx.android.synthetic.main.fragment_my_page.*
 
@@ -19,15 +18,12 @@ class MyPageFragment : Fragment() {
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             activity?.finish()
         }
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         return inflater.inflate(R.layout.fragment_my_page, container, false)
     }
 
@@ -41,6 +37,8 @@ class MyPageFragment : Fragment() {
             Toast.makeText(activity,"Location Alarm Setting ",Toast.LENGTH_LONG).show()
         }
     }
+
+
 
 
 }

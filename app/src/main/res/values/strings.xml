@@ -21,4 +21,10 @@
 
     <string name="time_alarm_setting">Bus time alarm setting(Go to office)</string>
     <string name="location_alarm_setting">Bus location alarm setting(Off work)</string>
+
+    <string name="five_minutes_ago">5 minutes ago</string>
+    <string name="ten_minutes_ago">10 minutes ago</string>
+    <string name="fifteen_minutes_ago">15 minutes ago</string>
+    <string name="twenty_minutes_ago">20 minutes ago</string>
+    <string name="select_bus_alarm">Select a bus alarm</string>
 </resources>
