@@ -14,6 +14,7 @@ data class BusLine(
 
 @Parcelize
 data class BusStop(
+    val index: Int = 0,
     val name: String = "",
     val nameKr: String = "",
     val time: String = "",

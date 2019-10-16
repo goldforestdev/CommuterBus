@@ -99,12 +99,15 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         }
     }
 
-    override fun onBusAlarmClicked(busType: Type,busStops: BusStop) {
+    override fun onBusAlarmClicked (busType: Type,busStops: BusStop) {
+
+        val message  = if (CommuterBusApplication.language != "ko") busStops.name else busStops.nameKr
+
         val alarmManager = BusAlarmManager(this)
         if (busType == Type.GO_OFFICE) {
-            alarmManager.register(152,busStops,5*60*1000,"Test")
+            alarmManager.register(busStops.index,busStops,5*60*1000,message)
         } else {
-            alarmManager.register(152,busStops,"Test")
+            alarmManager.register(busStops.index,busStops,message)
         }
         AlarmLocalDataSource.saveAlarm(pref)
     }

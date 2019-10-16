@@ -2,16 +2,16 @@ package com.hppk.sw.hppkcommuterbus.data.local
 
 
 import android.content.SharedPreferences
+import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 
 object AlarmLocalDataSource {
     private const val ALARM_ID = "ALARM_ID"
 
 
-    fun saveAlarm(pref: SharedPreferences,favoritesDataList : List<String>) {
-        val set = HashSet<String>()
-        set.addAll(favoritesDataList)
-        pref.edit().putStringSet(ALARM_ID, set).apply()
-
+    fun saveAlarm(pref: SharedPreferences,busStopList : List<BusStop>) {
+        val set = HashSet<BusStop>()
+        set.addAll(busStopList)
+        pref.edit().put(ALARM_ID, set).apply()
     }
 
     fun loadAlarmID (pref: SharedPreferences) : MutableList<String> {
