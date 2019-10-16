@@ -342,10 +342,17 @@
     "Bus_10" : {
       "busStops" : [ {
         "index" : 24,
-        "lat" : 37.236318,
-        "lng" : 127.025801,
-        "name" : "Samsung LiumDentist’s Office",
+        "lat" : 37.245025,
+        "lng" : 127.046106,
+        "name" : "신동사거리 버스정류장",
         "nameKr" : "신동사거리 버스정류장",
+        "time" : "7:40"
+      }, {
+        "index" : 24,
+        "lat" : 37.258795,
+        "lng" : 127.057563,
+        "name" : "Samsung LiumDentist’s Office",
+        "nameKr" : "삼성 리움치과 (동문 + 어린이집)",
         "time" : "7:40"
       }, {
         "index" : 0,
