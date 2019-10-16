@@ -314,15 +314,15 @@
     "Bus_09" : {
       "busStops" : [ {
         "index" : 22,
-        "lat" : 37.236318,
-        "lng" : 127.025801,
+        "lat" : 37.259335,
+        "lng" : 127.040813,
         "name" : "Hyowon High School",
         "nameKr" : "효원 고등학교",
         "time" : "7:40"
       }, {
         "index" : 23,
-        "lat" : 37.394306,
-        "lng" : 127.110189,
+        "lat" : 37.259286,
+        "lng" : 127.048523,
         "name" : "Yeongtong-gu District Office",
         "nameKr" : "영통 구청",
         "time" : "7:45"
