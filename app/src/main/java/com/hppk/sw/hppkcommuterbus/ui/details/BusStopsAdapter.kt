@@ -13,18 +13,19 @@ import kotlinx.android.synthetic.main.item_bus_stop.view.*
 
 class BusStopsAdapter (
     private val busStops: List<BusStop> = listOf(),
+    val alarmBusStops : MutableList<BusStop> = mutableListOf(),
     private var context : Context? = null,
     private val busType : Type,
     private val clickListener: BusStopClickListener,
-    private val alarmClicklistener: BusAlarmClicklistener
+    private val alarmClickListener: BusAlarmClickListener
 ): RecyclerView.Adapter<BusStopsAdapter.BusStopHolder> () {
 
     interface BusStopClickListener {
         fun onBusStopClicked(busStop: BusStop)
     }
 
-    interface BusAlarmClicklistener {
-        fun onBusAlarmClicked(busType: Type, busStops: BusStop)
+    interface BusAlarmClickListener {
+        fun onBusAlarmClicked (busType: Type, busStops: BusStop)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStopHolder =
@@ -45,12 +46,23 @@ class BusStopsAdapter (
         } else {
             busStop.nameKr
         }
+        if (busStop.index == 0) {
+            holder.itemView.ivAlarm.visibility = View.GONE
+        } else {
+            holder.itemView.ivAlarm.visibility = View.VISIBLE
+            if (alarmBusStops.contains(busStop)) {
+                holder.itemView.ivAlarm.setImageResource(R.drawable.ic_alarm_selected)
+            } else {
+                holder.itemView.ivAlarm.setImageResource(R.drawable.ic_alarm_normal)
+            }
+        }
+
 
         holder.itemView.tvTime.text = busStop.time
 
         holder.itemView.setOnClickListener { clickListener.onBusStopClicked(busStop) }
 
-        holder.itemView.ivAlarm.setOnClickListener { alarmClicklistener.onBusAlarmClicked(busType, busStop)}
+        holder.itemView.ivAlarm.setOnClickListener { alarmClickListener.onBusAlarmClicked(busType, busStop)}
     }
 
     class BusStopHolder(itemView: View): RecyclerView.ViewHolder(itemView)

@@ -20,11 +20,14 @@ import net.daum.mf.map.api.*
 
 const val BUS_LINE = "busline"
 
-class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickListener, BusStopsAdapter.BusAlarmClicklistener {
-
+class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickListener
+    , BusStopsAdapter.BusAlarmClickListener, LineDetailsContract.View {
+    private val presenter: LineDetailsContract.Presenter by lazy { LineDetailsPresenter(this) }
     private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
     private val mapView: MapView by lazy { MapView(this) }
     private val behavior: BottomSheetBehavior<ConstraintLayout> by lazy { BottomSheetBehavior.from(bottomSheet) }
+    private lateinit var busLinesAdapter: BusStopsAdapter
+    private lateinit var alarmList :MutableList<BusStop>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,6 +38,8 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
             return
         }
 
+        initData()
+
         val busLine = intent.getParcelableExtra<BusLine>(BUS_LINE)
         initBusLineMap(busLine)
         initBusLineList(busLine)
@@ -43,9 +48,14 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
     }
 
     private fun initBusLineList(busLine: BusLine) {
-        rvBusStops.adapter = BusStopsAdapter(busLine.busStops, context = this, busType = busLine.type
-            ,clickListener = this, alarmClicklistener = this)
+        busLinesAdapter = BusStopsAdapter(busLine.busStops, context = this, busType = busLine.type
+            ,clickListener = this, alarmClickListener = this)
+        rvBusStops.adapter = busLinesAdapter
         rvBusStops.layoutManager = LinearLayoutManager(this)
+    }
+
+    private fun initData () {
+        presenter.loadAlarmList(pref)
     }
 
     private fun initBusLineMap(busLine: BusLine) {
@@ -80,6 +90,10 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding))
     }
 
+    override fun onAlarmListLoaded(alarmBusStopList: MutableList<BusStop>) {
+        alarmList = alarmBusStopList
+    }
+
     override fun onBusStopClicked(busStop: BusStop) {
         if (behavior.state == BottomSheetBehavior.STATE_EXPANDED) {
             behavior.state = BottomSheetBehavior.STATE_HALF_EXPANDED
@@ -99,17 +113,29 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         }
     }
 
-    override fun onBusAlarmClicked (busType: Type,busStops: BusStop) {
+    override fun onBusAlarmClicked (busType: Type, busStops: BusStop) {
 
         val message  = if (CommuterBusApplication.language != "ko") busStops.name else busStops.nameKr
-
         val alarmManager = BusAlarmManager(this)
-        if (busType == Type.GO_OFFICE) {
-            alarmManager.register(busStops.index,busStops,5*60*1000,message)
+        if (alarmList.contains(busStops)) {
+            alarmList.remove(busStops)
+            if (busType == Type.GO_OFFICE) {
+                alarmManager.unregister(busStops.index)
+            } else {
+                alarmManager.unregister(busStops)
+            }
         } else {
-            alarmManager.register(busStops.index,busStops,message)
+            alarmList.add(busStops)
+            if (busType == Type.GO_OFFICE) {
+                alarmManager.register(busStops.index,busStops,5*60*1000,message)
+            } else {
+                alarmManager.register(busStops.index,busStops,message)
+            }
         }
-        AlarmLocalDataSource.saveAlarm(pref)
+        busLinesAdapter.alarmBusStops.clear()
+        busLinesAdapter.alarmBusStops.addAll(alarmList)
+        busLinesAdapter.notifyDataSetChanged()
+        AlarmLocalDataSource.saveAlarm(pref,alarmList)
     }
 
 }
