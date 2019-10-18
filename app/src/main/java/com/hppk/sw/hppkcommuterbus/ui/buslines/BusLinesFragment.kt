@@ -12,7 +12,7 @@ import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hppk.sw.hppkcommuterbus.R
-import com.hppk.sw.hppkcommuterbus.data.local.FavoritesLocalDataSource
+import com.hppk.sw.hppkcommuterbus.data.local.LocalDataSource
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.Type
 import com.hppk.sw.hppkcommuterbus.ui.MainActivity
@@ -98,6 +98,6 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
         busLinesAdapter.favorites.clear()
         busLinesAdapter.favorites.addAll(favoritesBusLineList)
         busLinesAdapter.notifyDataSetChanged()
-        FavoritesLocalDataSource.saveFavoriteID(pref, favoritesBusLineList)
+        LocalDataSource.saveFavoriteID(pref, favoritesBusLineList)
     }
 }

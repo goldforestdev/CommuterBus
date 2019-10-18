@@ -1,7 +1,7 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
 import android.content.SharedPreferences
-import com.hppk.sw.hppkcommuterbus.data.local.AlarmLocalDataSource
+import com.hppk.sw.hppkcommuterbus.data.local.LocalDataSource
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 
 class LineDetailsPresenter (
@@ -10,8 +10,7 @@ class LineDetailsPresenter (
     private lateinit var dataList :MutableList<BusStop>
 
     override fun loadAlarmList(pref: SharedPreferences) {
-        dataList = AlarmLocalDataSource.loadAlarmID(pref)
+        dataList = LocalDataSource.loadAlarmID(pref)
         view.onAlarmListLoaded(dataList)
     }
-
 }

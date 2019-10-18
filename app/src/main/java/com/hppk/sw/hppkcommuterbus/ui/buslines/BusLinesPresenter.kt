@@ -1,7 +1,7 @@
 package com.hppk.sw.hppkcommuterbus.ui.buslines
 
 import android.content.SharedPreferences
-import com.hppk.sw.hppkcommuterbus.data.local.FavoritesLocalDataSource
+import com.hppk.sw.hppkcommuterbus.data.local.LocalDataSource
 
 class BusLinesPresenter (
     private val view : BusLinesContract.View
@@ -9,7 +9,7 @@ class BusLinesPresenter (
     private lateinit var dataList :MutableList<String>
 
     override fun loadRecent(pref:SharedPreferences) {
-        dataList = FavoritesLocalDataSource.loadFavoriteID(pref)
+        dataList = LocalDataSource.loadFavoriteID(pref)
         view.onFavoritesListLoaded(dataList)
     }
 

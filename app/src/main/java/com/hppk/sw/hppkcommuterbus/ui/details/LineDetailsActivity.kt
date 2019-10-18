@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
-import com.hppk.sw.hppkcommuterbus.data.local.AlarmLocalDataSource
+import com.hppk.sw.hppkcommuterbus.data.local.LocalDataSource
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.data.model.Type
@@ -38,11 +38,10 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
             return
         }
 
-        initData()
-
         val busLine = intent.getParcelableExtra<BusLine>(BUS_LINE)
         initBusLineMap(busLine)
         initBusLineList(busLine)
+        initData()
 
         mapContainer.addView(mapView)
     }
@@ -92,6 +91,9 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
 
     override fun onAlarmListLoaded(alarmBusStopList: MutableList<BusStop>) {
         alarmList = alarmBusStopList
+        busLinesAdapter.alarmBusStops.clear()
+        busLinesAdapter.alarmBusStops.addAll(alarmList)
+        busLinesAdapter.notifyDataSetChanged()
     }
 
     override fun onBusStopClicked(busStop: BusStop) {
@@ -135,7 +137,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         busLinesAdapter.alarmBusStops.clear()
         busLinesAdapter.alarmBusStops.addAll(alarmList)
         busLinesAdapter.notifyDataSetChanged()
-        AlarmLocalDataSource.saveAlarm(pref,alarmList)
+        LocalDataSource.saveAlarm(pref,alarmList)
     }
 
 }
