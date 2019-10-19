@@ -22,12 +22,14 @@ const val BUS_LINE = "busline"
 
 class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickListener
     , BusStopsAdapter.BusAlarmClickListener, LineDetailsContract.View {
+
     private val presenter: LineDetailsContract.Presenter by lazy { LineDetailsPresenter(this) }
     private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
     private val mapView: MapView by lazy { MapView(this) }
     private val behavior: BottomSheetBehavior<ConstraintLayout> by lazy { BottomSheetBehavior.from(bottomSheet) }
     private lateinit var busLinesAdapter: BusStopsAdapter
-    private lateinit var alarmList :MutableList<BusStop>
+    private lateinit var timeAlarmList :MutableList<BusStop>
+    private lateinit var locationAlarmList :MutableList<BusStop>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -89,10 +91,21 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         mapView.moveCamera(CameraUpdateFactory.newMapPointBounds(mapPointBounds, padding))
     }
 
-    override fun onAlarmListLoaded(alarmBusStopList: MutableList<BusStop>) {
-        alarmList = alarmBusStopList
-        busLinesAdapter.alarmBusStops.clear()
-        busLinesAdapter.alarmBusStops.addAll(alarmList)
+
+
+    override fun onAlarmListLoaded(
+        timeAlarmBusStopList: MutableList<BusStop>,
+        locationAlarmBusStopList: MutableList<BusStop>
+    ) {
+        timeAlarmList = timeAlarmBusStopList
+        locationAlarmList = locationAlarmBusStopList
+
+        busLinesAdapter.timeAlarmBusStops.clear()
+        busLinesAdapter.timeAlarmBusStops.addAll(timeAlarmList)
+
+        busLinesAdapter.locationAlarmBusStops.clear()
+        busLinesAdapter.locationAlarmBusStops.addAll(locationAlarmList)
+
         busLinesAdapter.notifyDataSetChanged()
     }
 
@@ -119,25 +132,31 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
 
         val message  = if (CommuterBusApplication.language != "ko") busStops.name else busStops.nameKr
         val alarmManager = BusAlarmManager(this)
-        if (alarmList.contains(busStops)) {
-            alarmList.remove(busStops)
-            if (busType == Type.GO_OFFICE) {
+        if (busType == Type.GO_OFFICE) {
+            if (timeAlarmList.contains(busStops)) {
+                timeAlarmList.remove(busStops)
                 alarmManager.unregister(busStops.index)
             } else {
-                alarmManager.unregister(busStops)
-            }
-        } else {
-            alarmList.add(busStops)
-            if (busType == Type.GO_OFFICE) {
+                timeAlarmList.add(busStops)
                 alarmManager.register(busStops.index,busStops,5*60*1000,message)
+            }
+            LocalDataSource.saveTimeAlarm(pref,timeAlarmList)
+            busLinesAdapter.timeAlarmBusStops.clear()
+            busLinesAdapter.timeAlarmBusStops.addAll(timeAlarmList)
+        } else {
+            if (locationAlarmList.contains(busStops)) {
+                locationAlarmList.remove(busStops)
+                alarmManager.unregister(busStops)
             } else {
+                locationAlarmList.add(busStops)
                 alarmManager.register(busStops.index,busStops,message)
             }
+            LocalDataSource.saveLocationAlarm(pref,locationAlarmList)
+            busLinesAdapter.locationAlarmBusStops.clear()
+            busLinesAdapter.locationAlarmBusStops.addAll(locationAlarmList)
         }
-        busLinesAdapter.alarmBusStops.clear()
-        busLinesAdapter.alarmBusStops.addAll(alarmList)
+
         busLinesAdapter.notifyDataSetChanged()
-        LocalDataSource.saveAlarm(pref,alarmList)
     }
 
 }

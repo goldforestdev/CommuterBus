@@ -13,7 +13,8 @@ import kotlinx.android.synthetic.main.item_bus_stop.view.*
 
 class BusStopsAdapter (
     private val busStops: List<BusStop> = listOf(),
-    val alarmBusStops : MutableList<BusStop> = mutableListOf(),
+    val timeAlarmBusStops : MutableList<BusStop> = mutableListOf(),
+    val locationAlarmBusStops : MutableList<BusStop> = mutableListOf(),
     private var context : Context? = null,
     private val busType : Type,
     private val clickListener: BusStopClickListener,
@@ -50,7 +51,7 @@ class BusStopsAdapter (
             holder.itemView.ivAlarm.visibility = View.GONE
         } else {
             holder.itemView.ivAlarm.visibility = View.VISIBLE
-            if (alarmBusStops.contains(busStop)) {
+            if (timeAlarmBusStops.contains(busStop)) {
                 holder.itemView.ivAlarm.setImageResource(R.drawable.ic_alarm_selected)
             } else {
                 holder.itemView.ivAlarm.setImageResource(R.drawable.ic_alarm_normal)
