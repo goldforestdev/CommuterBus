@@ -15,13 +15,20 @@ class AlarmReceiver : BroadcastReceiver() {
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             handleBootCompleted(context)
         } else {
-            val message = intent.getStringExtra(KEY_ALARM_MESSAGE)
-            NotiManager.notify(context, context.getString(R.string.bus_alarm), message)
+            handleAlarm(context, intent)
         }
     }
 
     private fun handleBootCompleted(context: Context) {
         // TODO: Alarm 등록
+    }
+
+    private fun handleAlarm(context: Context, intent: Intent) {
+        val message = when {
+            intent.hasExtra(KEY_ALARM_MESSAGE) -> intent.getStringExtra(KEY_ALARM_MESSAGE)
+            else -> ""
+        }
+        NotiManager.notify(context, context.getString(R.string.bus_alarm), message)
     }
 
 }
