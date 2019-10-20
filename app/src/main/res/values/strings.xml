@@ -26,7 +26,7 @@
     <string name="send_feedback">Send Feedback</string>
     <string name="send_feedback_details">Report technical issues or suggest new features</string>
     <string name="version">Version</string>
-    <string name="email" translatable="false">\@gmail.com</string>
+    <string name="email" translatable="false">goldforestdev@gmail.com</string>
     <string name="send_feedback_email_subject">[%1$s][%2$s] send feedback</string>
     <string name="send_feedback_email_details">Device Model: \nAndroid OS Version: \nIssue: \n</string>
 
