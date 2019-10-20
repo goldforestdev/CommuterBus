@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:title="@string/settings">
+
+    <PreferenceCategory android:title="@string/bus_alarm">
+
+        <Preference
+            app:key="@string/key_alarm_go_office_time"
+            app:title="@string/alarm_time_setting"
+            android:summary="@string/alarm_time_setting_details"/>
+
+        <Preference
+            app:key="@string/key_alarm_go_home_distance"
+            app:title="@string/alarm_distance_setting"
+            android:summary="@string/alarm_distance_setting_details"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/app_info">
+        <Preference
+            app:key="@string/key_feedback"
+            app:title="@string/send_feedback"
+            app:summary="@string/send_feedback_details" />
+
+        <Preference
+            app:key="@string/key_version"
+            app:title="@string/version"
+            app:summary="" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

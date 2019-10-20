@@ -17,4 +17,15 @@
     <string name="unexpected_error">예기치 못한 오류 발생</string>
     <string name="hppk_bus_noti_channel_name">HPPK 통근 버스 알림</string>
     <string name="bus_alarm">버스 알림</string>
+    <string name="settings">설정</string>
+    <string name="alarm_time_setting">알람 시간 설정</string>
+    <string name="alarm_distance_setting">알람 거리 설정</string>
+    <string name="alarm_time_setting_details">출근 버스가 도착하기 전에 알려드릴 시간 설정입니다.</string>
+    <string name="alarm_distance_setting_details">퇴근 버스가 지정된 버스 정류장에 도착하기 전에 알려드릴 거리 설정입니다.</string>
+    <string name="app_info">앱 정보</string>
+    <string name="send_feedback">문의 및 문제점 신고</string>
+    <string name="send_feedback_details">사용하시면서 문제가 발생하거나, 개선 사항 혹은 문의 사항이 있다면 알려주세요!</string>
+    <string name="version">버전</string>
+    <string name="send_feedback_email_subject">[%1$s][%2$s] 문의 및 문제점 신고</string>
+    <string name="send_feedback_email_details">기기명: \n안드로이드 OS 버전: \n문제 상세 내용: \n</string>
 </resources>

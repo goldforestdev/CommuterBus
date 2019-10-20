@@ -5,9 +5,6 @@
     <string name="favorites">Favorites</string>
     <string name="go_to_office">Go to work</string>
     <string name="off_work">Off work</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="bus_lines">Bus Lines</string>
     <string name="map">Map</string>
     <string name="my_page">My Page</string>
@@ -20,4 +17,23 @@
     <string name="unexpected_error">Unexpected error</string>
     <string name="hppk_bus_noti_channel_name">HPPK Commuter Bus Notification</string>
     <string name="bus_alarm">Bus Alarm</string>
+    <string name="settings">Settings</string>
+    <string name="alarm_time_setting">Alarm Time Setting</string>
+    <string name="alarm_distance_setting">Alarm Distance Setting</string>
+    <string name="alarm_time_setting_details">Alarm time settings details</string>
+    <string name="alarm_distance_setting_details">Alarm distance setting details</string>
+    <string name="app_info">App Informations</string>
+    <string name="send_feedback">Send Feedback</string>
+    <string name="send_feedback_details">Report technical issues or suggest new features</string>
+    <string name="version">Version</string>
+    <string name="email" translatable="false">\@gmail.com</string>
+    <string name="send_feedback_email_subject">[%1$s][%2$s] send feedback</string>
+    <string name="send_feedback_email_details">Device Model: \nAndroid OS Version: \nIssue: \n</string>
+
+    <!-- Preferences Key -->
+    <string name="key_alarm_go_office_time" translatable="false">key_alarm_go_office_time</string>
+    <string name="key_alarm_go_home_distance" translatable="false">key_alarm_go_home_distance</string>
+    <string name="key_feedback" translatable="false">key_feedback</string>
+    <string name="key_version" translatable="false">key_version</string>
+
 </resources>
