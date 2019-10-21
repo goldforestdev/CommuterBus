@@ -1,12 +1,17 @@
 package com.hppk.sw.hppkcommuterbus.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
+import com.hppk.sw.hppkcommuterbus.ui.settings.SettingsActivity
 
 
 const val KEY_BUS_LINES = "KEY_BUS_LINES"
@@ -32,6 +37,19 @@ class MainActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottomNavView).setupWithNavController(
             findNavController(R.id.navHostFragment)
         )
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_options, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == R.id.menuSettings) {
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+
+        return true
     }
 
 }

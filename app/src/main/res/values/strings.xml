@@ -1,4 +1,10 @@
 <resources>
+    <!-- Preferences Key -->
+    <string name="key_alarm_go_office_time" translatable="false">key_alarm_go_office_time</string>
+    <string name="key_alarm_go_home_distance" translatable="false">key_alarm_go_home_distance</string>
+    <string name="key_feedback" translatable="false">key_feedback</string>
+    <string name="key_version" translatable="false">key_version</string>
+
     <string name="app_name">HPPK Commuter Bus</string>
     <string name="splash_bottom_text" translatable="false">Copyright<![CDATA[ⓒ]]> 2019 SW Asset Developers.</string>
     <string name="start">start</string>
@@ -26,14 +32,8 @@
     <string name="send_feedback">Send Feedback</string>
     <string name="send_feedback_details">Report technical issues or suggest new features</string>
     <string name="version">Version</string>
-    <string name="email" translatable="false">\@gmail.com</string>
+    <string name="email" translatable="false">goldforestdev@gmail.com</string>
     <string name="send_feedback_email_subject">[%1$s][%2$s] send feedback</string>
     <string name="send_feedback_email_details">Device Model: \nAndroid OS Version: \nIssue: \n</string>
-
-    <!-- Preferences Key -->
-    <string name="key_alarm_go_office_time" translatable="false">key_alarm_go_office_time</string>
-    <string name="key_alarm_go_home_distance" translatable="false">key_alarm_go_home_distance</string>
-    <string name="key_feedback" translatable="false">key_feedback</string>
-    <string name="key_version" translatable="false">key_version</string>
 
 </resources>
