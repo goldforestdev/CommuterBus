@@ -7,15 +7,19 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
+import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.ui.MainActivity
+import com.hppk.sw.hppkcommuterbus.ui.splash.SplashActivity
 
 
 private const val CHANNEL_ID = "hppk-commuter-bus-noti-channel-id"
 
 object NotiManager {
+
+    private val TAG = NotiManager::class.java.simpleName
 
     fun createChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -31,7 +35,7 @@ object NotiManager {
     }
 
     fun notify(context: Context, title: String, text: String) {
-        val intent = Intent(context, MainActivity::class.java).apply {
+        val intent = Intent(context, SplashActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent = PendingIntent.getActivity(context, 10, intent, PendingIntent.FLAG_UPDATE_CURRENT)
@@ -41,6 +45,7 @@ object NotiManager {
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setSmallIcon(R.mipmap.ic_launcher)
         with(NotificationManagerCompat.from(context)) {
             notify(123, notiBuilder.build())
         }
