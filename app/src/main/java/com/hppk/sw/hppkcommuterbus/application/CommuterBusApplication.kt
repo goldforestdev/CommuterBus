@@ -5,9 +5,12 @@ import androidx.multidex.MultiDexApplication
 import com.hppk.sw.hppkcommuterbus.manager.NotiManager
 import java.util.*
 
-lateinit var language: String
+class CommuterBusApplication : MultiDexApplication () {
 
-class CommuterBusApplication : MultiDexApplication() {
+    companion object {
+        var language : String ? = null
+
+    }
 
     override fun onCreate() {
         super.onCreate()
