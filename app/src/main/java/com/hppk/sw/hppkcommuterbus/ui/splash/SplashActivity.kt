@@ -89,7 +89,7 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
             intent.putExtra(KEY_BUS_LINES, busLines.toTypedArray())
             startActivity(intent)
             finish()
-        }, 2000)
+        }, 1000)
     }
 
     private fun printHashKey() {
