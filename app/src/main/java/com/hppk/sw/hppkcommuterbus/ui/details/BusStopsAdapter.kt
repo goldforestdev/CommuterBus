@@ -1,12 +1,10 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
-import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.data.model.Type
 import kotlinx.android.synthetic.main.item_bus_stop.view.*
@@ -15,7 +13,6 @@ class BusStopsAdapter (
     private val busStops: List<BusStop> = listOf(),
     val timeAlarmBusStops : MutableList<BusStop> = mutableListOf(),
     val locationAlarmBusStops : MutableList<BusStop> = mutableListOf(),
-    private var context : Context? = null,
     private val busType : Type,
     private val clickListener: BusStopClickListener,
     private val alarmClickListener: BusAlarmClickListener
@@ -42,11 +39,7 @@ class BusStopsAdapter (
             busStops.size - 1 -> holder.itemView.viewBottomBar.visibility = View.INVISIBLE
         }
 
-        holder.itemView.tvName.text = if (CommuterBusApplication.language!= "ko") {
-            busStop.name
-        } else {
-            busStop.nameKr
-        }
+        holder.itemView.tvName.text = busStop.busStopName
         if (busStop.index == 0) {
             holder.itemView.ivAlarm.visibility = View.GONE
         } else {
