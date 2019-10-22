@@ -9,8 +9,7 @@ class LineDetailsPresenter (
 ) : LineDetailsContract.Presenter {
 
     override fun loadAlarmList(pref: SharedPreferences) {
-        val timeAlarmDataList = LocalDataSource.loadTimeAlarmID(pref)
-        val locationAlarmDataList = LocalDataSource.loadLocationAlarmID(pref)
-        view.onAlarmListLoaded(timeAlarmDataList, locationAlarmDataList)
+        val alarmDataList = LocalDataSource.loadAlarmList(pref)
+        view.onAlarmListLoaded(alarmDataList)
     }
 }

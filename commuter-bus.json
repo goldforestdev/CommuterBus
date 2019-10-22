@@ -2,27 +2,32 @@
   "bus-line" : {
     "Bus Line 6 Home" : {
       "busStops" : [ {
+        "type" : "LEAVE_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
         "nameKr" : "HP",
         "time" : "18:10"
       }, {
+        "type" : "LEAVE_OFFICE",
         "lat" : 37.2968,
         "lng" : 127.040927,
         "name" : "경기대 후문사거리",
         "nameKr" : "경기대 후문사거리"
       }, {
+        "type" : "LEAVE_OFFICE",
         "lat" : 37.254801,
         "lng" : 127.036062,
         "name" : "경기소방본부",
         "nameKr" : "경기소방본부"
       }, {
+        "type" : "LEAVE_OFFICE",
         "lat" : 37.246661,
         "lng" : 127.032351,
         "name" : "권곡사거리",
         "nameKr" : "권곡사거리"
       }, {
+        "type" : "LEAVE_OFFICE",
         "lat" : 37.236318,
         "lng" : 127.025801,
         "name" : "한솔아파트",
@@ -55,6 +60,7 @@
     "Bus_01" : {
       "busStops" : [ {
         "index" : 1,
+        "type" : "GO_OFFICE",
         "lat" : 37.2783197,
         "lng" : 127.0349114,
         "name" : "Kwonson Middle School",
@@ -62,6 +68,7 @@
         "time" : "7:40"
       }, {
         "index" : 2,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "Seikwon Intersection",
@@ -69,6 +76,7 @@
         "time" : "7:49"
       }, {
         "index" : 3,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "City Hall Intersection",
@@ -76,6 +84,7 @@
         "time" : "7:54"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -90,6 +99,7 @@
     "Bus_02" : {
       "busStops" : [ {
         "index" : 4,
+        "type" : "GO_OFFICE",
         "lat" : 37.2783197,
         "lng" : 127.0349114,
         "name" : "Kwonson Middle School",
@@ -97,6 +107,7 @@
         "time" : "7:45"
       }, {
         "index" : 5,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "Seikwon Intersection",
@@ -104,6 +115,7 @@
         "time" : "7:48"
       }, {
         "index" : 6,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "City Hall Intersection",
@@ -111,6 +123,7 @@
         "time" : "7:51"
       }, {
         "index" : 7,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "Mutgol Intersection",
@@ -118,6 +131,7 @@
         "time" : "8:00"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -132,6 +146,7 @@
     "Bus_03" : {
       "busStops" : [ {
         "index" : 8,
+        "type" : "GO_OFFICE",
         "lat" : 37.2783197,
         "lng" : 127.0349114,
         "name" : "Gwanggyo Jungang Station",
@@ -139,6 +154,7 @@
         "time" : "7:45"
       }, {
         "index" : 9,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "Central Park-ro Intersection",
@@ -146,6 +162,7 @@
         "time" : "7:48"
       }, {
         "index" : 10,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "Sanghyun Station",
@@ -153,6 +170,7 @@
         "time" : "7:51"
       }, {
         "index" : 11,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "Across from Pungduk Highschool",
@@ -160,6 +178,7 @@
         "time" : "8:00"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -174,6 +193,7 @@
     "Bus_04" : {
       "busStops" : [ {
         "index" : 12,
+        "type" : "GO_OFFICE",
         "lat" : 37.2783197,
         "lng" : 127.0349114,
         "name" : "Heungduk Central Commercial District",
@@ -181,6 +201,7 @@
         "time" : "7:50"
       }, {
         "index" : 13,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "Heungduk Middle School",
@@ -188,6 +209,7 @@
         "time" : "7:52"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -202,6 +224,7 @@
     "Bus_05" : {
       "busStops" : [ {
         "index" : 14,
+        "type" : "GO_OFFICE",
         "lat" : 37.2783197,
         "lng" : 127.0349114,
         "name" : "Across from Dongsuwon Hospital",
@@ -209,6 +232,7 @@
         "time" : "7:40"
       }, {
         "index" : 15,
+        "type" : "GO_OFFICE",
         "lat" : 37.2733191,
         "lng" : 127.0508548,
         "name" : "KT Dongsuwon Office",
@@ -216,6 +240,7 @@
         "time" : "7:45"
       }, {
         "index" : 16,
+        "type" : "GO_OFFICE",
         "lat" : 37.270607,
         "lng" : 127.059735,
         "name" : "Woncheon Bridge Intersection",
@@ -223,6 +248,7 @@
         "time" : "7:47"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -237,6 +263,7 @@
     "Bus_06" : {
       "busStops" : [ {
         "index" : 17,
+        "type" : "GO_OFFICE",
         "lat" : 37.236318,
         "lng" : 127.025801,
         "name" : "Hanso Apt.",
@@ -244,6 +271,7 @@
         "time" : "7:40"
       }, {
         "index" : 18,
+        "type" : "GO_OFFICE",
         "lat" : 37.247939,
         "lng" : 127.033191,
         "name" : "Kwongok Intersection",
@@ -251,6 +279,7 @@
         "time" : "7:43"
       }, {
         "index" : 19,
+        "type" : "GO_OFFICE",
         "lat" : 37.254801,
         "lng" : 127.036062,
         "name" : "Gyeonggi Fire Department",
@@ -258,6 +287,7 @@
         "time" : "7:45"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -272,6 +302,7 @@
     "Bus_07" : {
       "busStops" : [ {
         "index" : 20,
+        "type" : "GO_OFFICE",
         "lat" : 37.236318,
         "lng" : 127.025801,
         "name" : "NewCore Outlet Dongsuwon Branch",
@@ -279,6 +310,7 @@
         "time" : "7:40"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -293,6 +325,7 @@
     "Bus_08" : {
       "busStops" : [ {
         "index" : 21,
+        "type" : "GO_OFFICE",
         "lat" : 37.236318,
         "lng" : 127.025801,
         "name" : "Maetan Elementary School",
@@ -300,6 +333,7 @@
         "time" : "7:40"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -314,6 +348,7 @@
     "Bus_09" : {
       "busStops" : [ {
         "index" : 22,
+        "type" : "GO_OFFICE",
         "lat" : 37.259335,
         "lng" : 127.040813,
         "name" : "Hyowon High School",
@@ -321,6 +356,7 @@
         "time" : "7:40"
       }, {
         "index" : 23,
+        "type" : "GO_OFFICE",
         "lat" : 37.259286,
         "lng" : 127.048523,
         "name" : "Yeongtong-gu District Office",
@@ -328,6 +364,7 @@
         "time" : "7:45"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -342,6 +379,7 @@
     "Bus_10" : {
       "busStops" : [ {
         "index" : 24,
+        "type" : "GO_OFFICE",
         "lat" : 37.245025,
         "lng" : 127.046106,
         "name" : "신동사거리 버스정류장",
@@ -349,6 +387,7 @@
         "time" : "7:40"
       }, {
         "index" : 24,
+        "type" : "GO_OFFICE",
         "lat" : 37.258795,
         "lng" : 127.057563,
         "name" : "Samsung LiumDentist’s Office",
@@ -356,6 +395,7 @@
         "time" : "7:40"
       }, {
         "index" : 0,
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -367,20 +407,23 @@
       "nameKr" : "직통노선(수원10)",
       "type" : "GO_OFFICE"
     },
-	"Bus_11" : {
+    "Bus_11" : {
       "busStops" : [ {
+        "type" : "GO_OFFICE",
         "lat" : 37.253792,
         "lng" : 127.062604,
         "name" : "YeongtongMiddle School",
         "nameKr" : "영통중하교",
         "time" : "7:50"
       },{
+        "type" : "GO_OFFICE",
         "lat" : 37.259044,
         "lng" : 127.078798,
         "name" : "쳥명역 2번 ~ 3번 출구 사이",
         "nameKr" : "쳥명역 2번 ~ 3번 출구 사이",
         "time" : "7:58"
       }, {
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -392,20 +435,23 @@
       "nameKr" : "직통노선(수원11)",
       "type" : "GO_OFFICE"
     },
-	"Bus_12" : {
+    "Bus_12" : {
       "busStops" : [ {
+        "type" : "GO_OFFICE",
         "lat" : 37.245681,
         "lng" : 127.058604,
         "name" : "망포역 1번 출구 자전거 보관대",
         "nameKr" : "망포역 1번 출구 자전거 보관대",
         "time" : "7:43"
       },{
+        "type" : "GO_OFFICE",
         "lat" : 37.247741,
         "lng" : 127.067877,
         "name" : "살구골 동아 아파트",
         "nameKr" : "살구골 동아 아파트",
         "time" : "7:47"
       }, {
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -417,26 +463,30 @@
       "nameKr" : "직통노선(수원12)",
       "type" : "GO_OFFICE"
     },
-	"Bus_13" : {
+    "Bus_13" : {
       "busStops" : [ {
+        "type" : "GO_OFFICE",
         "lat" : 37.238126,
         "lng" : 127.056854,
         "name" : "망포중학교",
         "nameKr" : "망포중학교",
         "time" : "7:40"
       },{
+        "type" : "GO_OFFICE",
         "lat" : 37.235380,
         "lng" : 127.062142,
         "name" : "신한은행 신영통지점",
         "nameKr" : "신한은행 신영통지점",
         "time" : "7:44"
       }, {
+        "type" : "GO_OFFICE",
         "lat" : 37.234531,
         "lng" : 127.068809,
         "name" : "서천고등학교",
         "nameKr" : "서천고등학교",
         "time" : "7:47"
       }, {
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",
@@ -448,26 +498,30 @@
       "nameKr" : "직통노선(수원13)",
       "type" : "GO_OFFICE"
     },
-	"Bus_Dongtan" : {
+    "Bus_Dongtan" : {
       "busStops" : [ {
+        "type" : "GO_OFFICE",
         "lat" : 37.209838,
         "lng" : 127.048694,
         "name" : "안화중학교",
         "nameKr" : "안화중학교",
         "time" : "7:25"
       },{
+        "type" : "GO_OFFICE",
         "lat" : 37.201857,
         "lng" : 127.068738,
         "name" : "동탄 홈플러스 건너편",
         "nameKr" : "동탄 홈플러스 건너편",
         "time" : "7:34"
       }, {
+        "type" : "GO_OFFICE",
         "lat" : 37.209216,
         "lng" : 127.099768,
         "name" : "동탄센트럴 상록아파트",
         "nameKr" : "동탄센트럴 상록아파트",
         "time" : "7:45"
       }, {
+        "type" : "GO_OFFICE",
         "lat" : 37.394306,
         "lng" : 127.110189,
         "name" : "HP",

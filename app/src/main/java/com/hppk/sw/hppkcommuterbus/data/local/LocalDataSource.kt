@@ -9,8 +9,7 @@ import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 
 object LocalDataSource {
     private const val FAVORITES_ID = "FAVORITES_ID"
-    private const val TIME_ALARM_ID = "TIME_ALARM_ID"
-    private const val LOCATION_ALARM_ID = "LOCATION_ALARM_ID"
+    private const val ALARM_ID = "ALARM_ID"
     private val gSon: Gson by lazy { Gson() }
 
 
@@ -29,29 +28,15 @@ object LocalDataSource {
         )
     }
 
-    fun saveTimeAlarm(pref: SharedPreferences, busStopList : List<BusStop>) {
+    fun saveAlarm(pref: SharedPreferences, busStopList : List<BusStop>) {
         val busStops = gSon.toJson(busStopList)
-        pref.edit().putString(TIME_ALARM_ID,busStops).apply()
+        pref.edit().putString(ALARM_ID,busStops).apply()
     }
 
-    fun loadTimeAlarmID (pref: SharedPreferences) : MutableList<BusStop> {
+    fun loadAlarmList (pref: SharedPreferences) : MutableList<BusStop> {
         val emptyList = gSon.toJson(ArrayList<BusStop>())
         return gSon.fromJson(
-            pref.getString(TIME_ALARM_ID, emptyList),
-            object : TypeToken<ArrayList<BusStop>>() {
-            }.type
-        )
-    }
-
-    fun saveLocationAlarm(pref: SharedPreferences, busStopList : List<BusStop>) {
-        val busStops = gSon.toJson(busStopList)
-        pref.edit().putString(LOCATION_ALARM_ID,busStops).apply()
-    }
-
-    fun loadLocationAlarmID (pref: SharedPreferences) : MutableList<BusStop> {
-        val emptyList = gSon.toJson(ArrayList<BusStop>())
-        return gSon.fromJson(
-            pref.getString(LOCATION_ALARM_ID, emptyList),
+            pref.getString(ALARM_ID, emptyList),
             object : TypeToken<ArrayList<BusStop>>() {
             }.type
         )
