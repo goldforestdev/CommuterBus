@@ -5,13 +5,10 @@ import android.content.SharedPreferences
 interface BusLinesContract {
 
     interface View {
-        fun onFavoritesListLoaded(favoritesList: List<String>)
-        fun onFavoritesSaved()
+        fun onFavoritesListLoaded(favoritesList : MutableList<String>)
     }
 
     interface Presenter {
-        fun unsubscribe()
         fun loadRecent(pref: SharedPreferences)
-        fun saveFavoriteIds(favoritesBusLineList: List<String>)
     }
 }
