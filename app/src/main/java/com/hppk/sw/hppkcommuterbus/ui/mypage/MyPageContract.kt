@@ -7,8 +7,7 @@ import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 interface MyPageContract {
 
     interface View {
-        fun onDataLoaded(favoritesList : MutableList<BusLine>, timeAlarmList : MutableList<BusStop>
-                         , locationAlarmList : MutableList<BusStop>)
+        fun onDataLoaded(favoritesList : MutableList<BusLine>, alarmList : MutableList<BusStop>)
     }
 
     interface Presenter {

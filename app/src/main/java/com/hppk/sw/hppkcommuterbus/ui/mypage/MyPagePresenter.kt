@@ -10,9 +10,8 @@ class MyPagePresenter (
 
     override fun loadData(pref:SharedPreferences) {
         val favoriteList = LocalDataSource.loadFavoriteID(pref)
-        val timeAlarmDataList = LocalDataSource.loadTimeAlarmID(pref)
-        val locationAlarmDataList = LocalDataSource.loadLocationAlarmID(pref)
-        view.onDataLoaded(favoriteList, timeAlarmDataList, locationAlarmDataList)
+        val alarmDataList = LocalDataSource.loadAlarmList(pref)
+        view.onDataLoaded(favoriteList, alarmDataList)
     }
 
 }

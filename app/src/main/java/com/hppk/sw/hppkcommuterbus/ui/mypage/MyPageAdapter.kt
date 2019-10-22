@@ -8,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import kotlinx.android.synthetic.main.item_bus_list.view.*
@@ -18,9 +19,14 @@ import kotlinx.android.synthetic.main.item_title.view.*
 class MyPageAdapter(
     private val list : MutableList<Any>,
     private var context : Context? = null
-    /*private val busLineClickListener : BusLineClickListener,
-    private val busFavoritesClickListener : BusFavoritesClickLister*/
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        const val TITLE_CONTENT = 0
+        const val OFFICE_ALARM_CONTENT = 1
+        const val HOME_ALARM_CONTENT = 2
+        const val FAVORITE = 3
+    }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -29,19 +35,19 @@ class MyPageAdapter(
         val inflater : LayoutInflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         when (viewType) {
-            MyPageModel.TITLE_CONTENT -> {
+            TITLE_CONTENT -> {
                 view = inflater.inflate(R.layout.item_title, parent,false)
                 return TitleHolder(view)
             }
-            MyPageModel.OFFICE_ALARM_CONTENT -> {
+            OFFICE_ALARM_CONTENT -> {
                 view = inflater.inflate(R.layout.item_my_page_bus_stop, parent,false)
                 return BusAlarmHolder(view)
             }
-            MyPageModel.HOME_ALARM_CONTENT -> {
+            HOME_ALARM_CONTENT -> {
                 view = inflater.inflate(R.layout.item_my_page_bus_stop, parent,false)
                 return BusAlarmHolder(view)
             }
-            MyPageModel.FAVORITE -> {
+            FAVORITE -> {
                 view = inflater.inflate(R.layout.item_bus_list, parent,false)
                 return FavoriteHolder(view)
             }
@@ -63,9 +69,9 @@ class MyPageAdapter(
 
     override fun getItemViewType(position: Int): Int {
         return when {
-            list[position] is String -> MyPageModel.TITLE_CONTENT
-            list[position] is BusStop -> MyPageModel.HOME_ALARM_CONTENT
-            list[position] is BusLine -> MyPageModel.FAVORITE
+            list[position] is String -> TITLE_CONTENT
+            list[position] is BusStop -> HOME_ALARM_CONTENT
+            list[position] is BusLine -> FAVORITE
             else -> super.getItemViewType(position)
         }
     }
@@ -75,39 +81,29 @@ class MyPageAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val obj = list[position]
 
-        if (obj is String) {
-
-        }
-
-/*
-        if (holder is FavoriteHolder) {`
-            with (holder) {
-                if (CommuterBusApplication.language != "ko") {
-                    tvBusLineName.text = favoriteBusLines[position].name
-                    tvBusStart.text =
-                        "${favoriteBusLines[position].busStops[0].name} ${context!!.resources.getString(R.string.start)}"
-                } else {
-                    tvBusLineName.text = favoriteBusLines[position].nameKr
-                    tvBusStart.text =
-                        "${favoriteBusLines[position].busStops[0].nameKr} ${context!!.resources.getString(R.string.start)}"
-                }
-                itemView.setOnClickListener {
-                    busLineClickListener.onBusLineClick(favoriteBusLines[position])
-                }
-
-                if (favoriteBusLines.contains(favoriteBusLines[position]) ) {
-                    ivStar.setImageResource(android.R.drawable.star_big_on)
-                } else {
-                    ivStar.setImageResource(android.R.drawable.star_big_off)
-                }
-
-                ivStar.setOnClickListener {
-                    busFavoritesClickListener.onBusFavoritesClick(favoriteBusLines[position])
-                }
+        when (holder) {
+            is TitleHolder -> with (holder) {
+                tvTitle.text = (obj as String)
             }
-        } else {
+            is BusAlarmHolder -> with (holder) {
+                tvName.text = if (CommuterBusApplication.language != "ko") (obj as BusStop).name else (obj as BusStop).nameKr
 
-        }*/
+                tvTime.text = obj.time
+                ivAlarm.setImageResource(R.drawable.ic_alarm_selected)
+            }
+            is FavoriteHolder -> with (holder) {
+                if (CommuterBusApplication.language != "ko") {
+                    tvBusLineName.text = (obj as BusLine).name
+                    tvBusStart.text =
+                        "${obj.busStops[0].name} ${context!!.resources.getString(R.string.start)}"
+                } else {
+                    tvBusLineName.text = (obj as BusLine).nameKr
+                    tvBusStart.text =
+                        "${obj.busStops[0].nameKr} ${context!!.resources.getString(R.string.start)}"
+                }
+                ivStar.setImageResource(android.R.drawable.star_big_on)
+            }
+        }
     }
 
     class TitleHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
