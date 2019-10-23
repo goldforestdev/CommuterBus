@@ -72,7 +72,6 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
         alarmBusLineList = alarmList
         busStopMap = alarmBusLineList.groupBy { it.type }
 
-        myPageAdapter.list.clear()
         myPageAdapter.list = setMyPageData()
         myPageAdapter.notifyDataSetChanged()
 
