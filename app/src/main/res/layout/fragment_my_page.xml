@@ -3,11 +3,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".ui.mypage.MyPageFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcMyPageList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:id="@+id/ll_no_data"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:layout_marginTop="180dp"
+        android:layout_gravity="center_horizontal"
+        android:background="#FFFFFF"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:src="@drawable/ic_person_pin"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center"
+            android:text="@string/no_data"
+            android:includeFontPadding="false"
+            android:textSize="23sp"/>
+    </LinearLayout>
 
 </FrameLayout>

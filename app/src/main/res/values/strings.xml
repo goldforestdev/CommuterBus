@@ -23,6 +23,7 @@
     <string name="unexpected_error">Unexpected error</string>
     <string name="hppk_bus_noti_channel_name">HPPK Commuter Bus Notification</string>
     <string name="bus_alarm">Bus Alarm</string>
+<<<<<<< HEAD
     <string name="settings">Settings</string>
     <string name="alarm_time_setting">Alarm Time Setting</string>
     <string name="alarm_distance_setting">Alarm Distance Setting</string>
@@ -36,4 +37,7 @@
     <string name="send_feedback_email_subject">[%1$s][%2$s] send feedback</string>
     <string name="send_feedback_email_details">Device Model: \nAndroid OS Version: \nIssue: \n</string>
 
+=======
+    <string name="no_data">No Data</string>
+>>>>>>> image icon 변경 & mypage no data 표시 처리 추가
 </resources>
