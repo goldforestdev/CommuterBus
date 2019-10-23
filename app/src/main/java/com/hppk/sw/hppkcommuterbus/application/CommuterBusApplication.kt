@@ -2,6 +2,7 @@ package com.hppk.sw.hppkcommuterbus.application
 
 import android.os.Build
 import androidx.multidex.MultiDexApplication
+import com.hppk.sw.hppkcommuterbus.manager.NotiManager
 import java.util.*
 
 class CommuterBusApplication : MultiDexApplication () {
@@ -14,6 +15,7 @@ class CommuterBusApplication : MultiDexApplication () {
     override fun onCreate() {
         super.onCreate()
         language = getLanguage()
+        NotiManager.createChannel(this)
     }
 
     private fun getLanguage(): String {

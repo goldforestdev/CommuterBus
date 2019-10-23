@@ -4,6 +4,7 @@ import android.app.AlarmManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.util.Log
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
@@ -13,12 +14,15 @@ import com.hppk.sw.hppkcommuterbus.receiver.AlarmReceiver
 import com.hppk.sw.hppkcommuterbus.receiver.GeofenceBroadcastReceiver
 import com.hppk.sw.hppkcommuterbus.receiver.KEY_ALARM_BUS_STOP
 import com.hppk.sw.hppkcommuterbus.receiver.KEY_ALARM_MESSAGE
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 class BusAlarmManager(
     private val context: Context
 ) {
+
+    private val TAG = BusAlarmManager::class.java.simpleName
     private val alarmManager: AlarmManager by lazy { context.getSystemService(Context.ALARM_SERVICE) as AlarmManager }
     private val geofencingClient: GeofencingClient by lazy {
         LocationServices.getGeofencingClient(
@@ -28,14 +32,10 @@ class BusAlarmManager(
 
     fun register(alarmId: Int, busStop: BusStop, time: Long, msg: String) {
         val intent = Intent(context, AlarmReceiver::class.java)
-            .putExtra(KEY_ALARM_MESSAGE, msg)
-            .putExtra(KEY_ALARM_BUS_STOP, busStop)
-        val pendingIntent = PendingIntent.getBroadcast(
-            context,
-            alarmId,
-            intent,
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
+        intent.putExtra(KEY_ALARM_MESSAGE, msg)
+        intent.putExtra(KEY_ALARM_BUS_STOP, busStop)
+
+        val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val calendar = Calendar.getInstance()
         val now = calendar.timeInMillis
@@ -49,12 +49,7 @@ class BusAlarmManager(
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
 
-        alarmManager.setRepeating(
-            AlarmManager.RTC_WAKEUP,
-            calendar.timeInMillis - time,
-            AlarmManager.INTERVAL_DAY,
-            pendingIntent
-        )
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis - time, pendingIntent)
     }
 
     fun register(alarmId: Int, busStop: BusStop, msg: String) {
