@@ -6,10 +6,13 @@ import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 interface LineDetailsContract {
 
     interface View {
-        fun onAlarmListLoaded(alarmBusStopList : MutableList<BusStop>)
+        fun onAlarmListLoaded(alarmBusStopList : List<BusStop>)
+        fun onAlarmListSaved()
     }
 
     interface Presenter {
-        fun loadAlarmList(pref: SharedPreferences)
+        fun unsubscribe()
+        fun loadAlarmList()
+        fun saveAlarms(alarmList: List<BusStop>)
     }
 }

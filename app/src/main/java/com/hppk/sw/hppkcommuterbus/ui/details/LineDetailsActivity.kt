@@ -1,6 +1,5 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.preference.PreferenceManager
 import androidx.appcompat.app.AppCompatActivity
@@ -9,10 +8,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
-import com.hppk.sw.hppkcommuterbus.data.local.LocalDataSource
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.data.model.Type
+import com.hppk.sw.hppkcommuterbus.data.repository.AlarmRepository
+import com.hppk.sw.hppkcommuterbus.data.repository.source.local.PrefAlarmDao
 import com.hppk.sw.hppkcommuterbus.manager.BusAlarmManager
 import kotlinx.android.synthetic.main.activity_line_details.*
 import net.daum.mf.map.api.*
@@ -23,8 +23,11 @@ const val BUS_LINE = "busline"
 class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickListener
     , BusStopsAdapter.BusAlarmClickListener, LineDetailsContract.View {
 
-    private val presenter: LineDetailsContract.Presenter by lazy { LineDetailsPresenter(this) }
-    private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(this) }
+    private val presenter: LineDetailsContract.Presenter by lazy {
+        LineDetailsPresenter(this,
+            AlarmRepository(PrefAlarmDao(PreferenceManager.getDefaultSharedPreferences(this)))
+        )
+    }
     private val mapView: MapView by lazy { MapView(this) }
     private val behavior: BottomSheetBehavior<ConstraintLayout> by lazy { BottomSheetBehavior.from(bottomSheet) }
     private lateinit var busLinesAdapter: BusStopsAdapter
@@ -47,6 +50,15 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         mapContainer.addView(mapView)
     }
 
+    override fun onStop() {
+        super.onStop()
+        presenter.unsubscribe()
+    }
+
+    override fun onAlarmListSaved() {
+        // TODO
+    }
+
     private fun initBusLineList(busLine: BusLine) {
         busLinesAdapter = BusStopsAdapter(busLine.busStops, context = this, busType = busLine.type
             ,clickListener = this, alarmClickListener = this)
@@ -55,7 +67,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
     }
 
     private fun initData () {
-        presenter.loadAlarmList(pref)
+        presenter.loadAlarmList()
     }
 
     private fun initBusLineMap(busLine: BusLine) {
@@ -92,9 +104,8 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
 
 
 
-    override fun onAlarmListLoaded(alarmBusStopList: MutableList<BusStop>) {
-
-        alarmList = alarmBusStopList
+    override fun onAlarmListLoaded(alarmBusStopList: List<BusStop>) {
+        alarmList = alarmBusStopList.toMutableList()
 
         busLinesAdapter.alarmBusStops.clear()
         busLinesAdapter.alarmBusStops.addAll(alarmList)
@@ -133,7 +144,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
                 alarmList.add(busStops)
                 alarmManager.register(busStops.index,busStops,5*60*1000,message)
             }
-            LocalDataSource.saveAlarm(pref,alarmList)
+            presenter.saveAlarms(alarmList)
             busLinesAdapter.alarmBusStops.clear()
             busLinesAdapter.alarmBusStops.addAll(alarmList)
         } else {
@@ -144,7 +155,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
                 alarmList.add(busStops)
                 alarmManager.register(busStops.index,busStops,message)
             }
-            LocalDataSource.saveAlarm(pref,alarmList)
+            presenter.saveAlarms(alarmList)
             busLinesAdapter.alarmBusStops.clear()
             busLinesAdapter.alarmBusStops.addAll(alarmList)
         }
