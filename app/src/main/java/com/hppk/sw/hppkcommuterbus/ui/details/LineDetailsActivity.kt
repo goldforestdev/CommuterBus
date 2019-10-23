@@ -9,7 +9,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
-import com.hppk.sw.hppkcommuterbus.data.model.Type
 import com.hppk.sw.hppkcommuterbus.data.repository.AlarmRepository
 import com.hppk.sw.hppkcommuterbus.data.repository.source.local.PrefAlarmDao
 import com.hppk.sw.hppkcommuterbus.manager.BusAlarmManager
@@ -24,13 +23,13 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
 
     private val presenter: LineDetailsContract.Presenter by lazy {
         LineDetailsPresenter(this,
-            AlarmRepository(PrefAlarmDao(PreferenceManager.getDefaultSharedPreferences(this)))
+            AlarmRepository(PrefAlarmDao(PreferenceManager.getDefaultSharedPreferences(this))),
+            BusAlarmManager(this)
         )
     }
     private val mapView: MapView by lazy { MapView(this) }
     private val behavior: BottomSheetBehavior<ConstraintLayout> by lazy { BottomSheetBehavior.from(bottomSheet) }
     private lateinit var busLinesAdapter: BusStopsAdapter
-    private lateinit var alarmList :MutableList<BusStop>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +58,8 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
     }
 
     private fun initBusLineList(busLine: BusLine) {
-        busLinesAdapter = BusStopsAdapter(busLine.busStops, context = this, busType = busLine.type
-            ,clickListener = this, alarmClickListener = this)
+        val busStopStates = busLine.busStops.map { BusStopState(it) }.toMutableList()
+        busLinesAdapter = BusStopsAdapter(busStopStates, clickListener = this, alarmClickListener = this)
         rvBusStops.adapter = busLinesAdapter
         rvBusStops.layoutManager = LinearLayoutManager(this)
     }
@@ -99,11 +98,11 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
 
 
     override fun onAlarmListLoaded(alarmBusStopList: List<BusStop>) {
-        alarmList = alarmBusStopList.toMutableList()
-
-        busLinesAdapter.alarmBusStops.clear()
-        busLinesAdapter.alarmBusStops.addAll(alarmList)
-
+        val busStopStateList = busLinesAdapter.busStops.map { (busStop, _) ->
+            BusStopState(busStop, alarmBusStopList.contains(busStop))
+        }
+        busLinesAdapter.busStops.clear()
+        busLinesAdapter.busStops.addAll(busStopStateList)
         busLinesAdapter.notifyDataSetChanged()
     }
 
@@ -126,35 +125,16 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         }
     }
 
-    override fun onBusAlarmClicked (busStops: BusStop) {
-
-        val message  = busStops.busStopName
-        val alarmManager = BusAlarmManager(this)
-        if (busStops.type == Type.GO_OFFICE) {
-            if (alarmList.contains(busStops)) {
-                alarmList.remove(busStops)
-                alarmManager.unregister(busStops.index)
-            } else {
-                alarmList.add(busStops)
-                alarmManager.register(busStops.index,busStops,5*60*1000,message)
-            }
-            presenter.saveAlarms(alarmList)
-            busLinesAdapter.alarmBusStops.clear()
-            busLinesAdapter.alarmBusStops.addAll(alarmList)
+    override fun onBusAlarmClicked (busStop: BusStop, alarmOn: Boolean) {
+        if (alarmOn) {
+            presenter.unregisterAlarm(busStop)
         } else {
-            if (alarmList.contains(busStops)) {
-                alarmList.remove(busStops)
-                alarmManager.unregister(busStops)
-            } else {
-                alarmList.add(busStops)
-                alarmManager.register(busStops.index,busStops,message)
-            }
-            presenter.saveAlarms(alarmList)
-            busLinesAdapter.alarmBusStops.clear()
-            busLinesAdapter.alarmBusStops.addAll(alarmList)
+            presenter.registerAlarm(busStop)
         }
 
-        busLinesAdapter.notifyDataSetChanged()
+        val position = busLinesAdapter.busStops.indexOfFirst { (b, _) -> b == busStop }
+        busLinesAdapter.busStops[position] = BusStopState(busStop, !alarmOn)
+        busLinesAdapter.notifyItemChanged(position)
     }
 
 }

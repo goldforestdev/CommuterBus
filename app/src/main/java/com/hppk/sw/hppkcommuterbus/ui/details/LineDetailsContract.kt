@@ -1,6 +1,5 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
-import android.content.SharedPreferences
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 
 interface LineDetailsContract {
@@ -14,5 +13,7 @@ interface LineDetailsContract {
         fun unsubscribe()
         fun loadAlarmList()
         fun saveAlarms(alarmList: List<BusStop>)
+        fun registerAlarm(busStop: BusStop)
+        fun unregisterAlarm(busStop: BusStop)
     }
 }

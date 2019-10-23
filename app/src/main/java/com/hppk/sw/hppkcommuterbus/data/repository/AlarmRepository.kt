@@ -13,12 +13,22 @@ class AlarmRepository(
         return localAlarmDao.save(busStopList)
     }
 
+    fun save(busStop: BusStop): Completable {
+        return localAlarmDao.save(busStop)
+    }
+
     fun getAll(): Single<List<BusStop>> {
         return localAlarmDao.getAll()
+    }
+
+    fun delete(busStop: BusStop): Completable {
+        return localAlarmDao.delete(busStop)
     }
 }
 
 interface AlarmDataSource {
     fun getAll(): Single<List<BusStop>>
-    fun save(favorites: List<BusStop>): Completable
+    fun save(alarms: List<BusStop>): Completable
+    fun save(alarm: BusStop): Completable
+    fun delete(busStop: BusStop): Completable
 }

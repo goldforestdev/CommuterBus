@@ -1,21 +1,20 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
-import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
-import com.hppk.sw.hppkcommuterbus.data.model.Type
 import kotlinx.android.synthetic.main.item_bus_stop.view.*
 
+data class BusStopState(
+    val busStop: BusStop,
+    var isAlarmOn: Boolean = false
+)
+
 class BusStopsAdapter (
-    private val busStops: List<BusStop> = listOf(),
-    val alarmBusStops : MutableList<BusStop> = mutableListOf(),
-    private var context : Context? = null,
-    private val busType : Type,
+    val busStops: MutableList<BusStopState> = mutableListOf(),
     private val clickListener: BusStopClickListener,
     private val alarmClickListener: BusAlarmClickListener
 ): RecyclerView.Adapter<BusStopsAdapter.BusStopHolder> () {
@@ -25,7 +24,7 @@ class BusStopsAdapter (
     }
 
     interface BusAlarmClickListener {
-        fun onBusAlarmClicked (busStops: BusStop)
+        fun onBusAlarmClicked (busStops: BusStop, alarmOn: Boolean)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BusStopHolder =
@@ -34,11 +33,15 @@ class BusStopsAdapter (
     override fun getItemCount(): Int = busStops.size
 
     override fun onBindViewHolder(holder: BusStopHolder, position: Int) {
-        val busStop = busStops[position]
+        val (busStop, isAlarmOn) = busStops[position]
 
         when(position) {
             0 -> holder.itemView.viewTopBar.visibility = View.INVISIBLE
-            busStops.size - 1 -> holder.itemView.viewBottomBar.visibility = View.INVISIBLE
+            busStops.lastIndex -> holder.itemView.viewBottomBar.visibility = View.INVISIBLE
+            else -> {
+                holder.itemView.viewTopBar.visibility = View.VISIBLE
+                holder.itemView.viewBottomBar.visibility = View.VISIBLE
+            }
         }
 
         holder.itemView.tvName.text = busStop.busStopName
@@ -46,11 +49,11 @@ class BusStopsAdapter (
             holder.itemView.ivAlarm.visibility = View.GONE
         } else {
             holder.itemView.ivAlarm.visibility = View.VISIBLE
-            if (alarmBusStops.contains(busStop)) {
-                holder.itemView.ivAlarm.setImageResource(R.drawable.ic_alarm_selected)
-            } else {
-                holder.itemView.ivAlarm.setImageResource(R.drawable.ic_alarm_normal)
+            val alarmImg = when {
+                isAlarmOn -> R.drawable.ic_alarm_selected
+                else -> R.drawable.ic_alarm_normal
             }
+            holder.itemView.ivAlarm.setImageResource(alarmImg)
         }
 
 
@@ -58,7 +61,7 @@ class BusStopsAdapter (
 
         holder.itemView.setOnClickListener { clickListener.onBusStopClicked(busStop) }
 
-        holder.itemView.ivAlarm.setOnClickListener { alarmClickListener.onBusAlarmClicked(busStop)}
+        holder.itemView.ivAlarm.setOnClickListener { alarmClickListener.onBusAlarmClicked(busStop, isAlarmOn)}
     }
 
     class BusStopHolder(itemView: View): RecyclerView.ViewHolder(itemView)
