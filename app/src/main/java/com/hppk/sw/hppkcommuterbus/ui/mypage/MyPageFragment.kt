@@ -50,6 +50,13 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
         return inflater.inflate(R.layout.fragment_my_page, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        initRecyclerView()
+        initData()
+    }
+
     override fun onResume() {
         super.onResume()
 
@@ -64,18 +71,32 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
         favoritesBusLineList = favoritesList
         alarmBusLineList = alarmList
         busStopMap = alarmBusLineList.groupBy { it.type }
-        initRecyclerView()
+
+        myPageAdapter.list.clear()
+        myPageAdapter.list = setMyPageData()
+        myPageAdapter.notifyDataSetChanged()
+
+        setEmptyView()
+
     }
 
     private fun initRecyclerView(){
+
+        myPageAdapter = MyPageAdapter(busLineClickListener = this
+            , busStopClickListener = this, busFavoritesClickLister = this, busAlarmClickLister = this)
+        rcMyPageList.layoutManager = LinearLayoutManager(activity)
+        rcMyPageList.adapter = myPageAdapter
+    }
+
+    private fun setMyPageData(): MutableList<Any> {
         val list = mutableListOf<Any>()
         try {
             if (busStopMap.getValue(Type.GO_OFFICE).isNotEmpty()) {
                 list.add(getString(R.string.go_to_office))
                 list.addAll(busStopMap.getValue(Type.GO_OFFICE))
             }
-        } catch (e : NoSuchElementException) {
-            Log.e(TAG,e.message)
+        } catch (e: NoSuchElementException) {
+            Log.e(TAG, e.message)
         }
 
         try {
@@ -83,8 +104,8 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
                 list.add(getString(R.string.off_work))
                 list.addAll(busStopMap.getValue(Type.LEAVE_OFFICE))
             }
-        } catch (e : NoSuchElementException) {
-            Log.e(TAG,e.message)
+        } catch (e: NoSuchElementException) {
+            Log.e(TAG, e.message)
         }
 
 
@@ -92,42 +113,24 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
             list.add(getString(R.string.favorites))
             list.addAll(favoritesBusLineList)
         }
-
-        myPageAdapter = MyPageAdapter(list = list, busLineClickListener = this
-            , busStopClickListener = this, busFavoritesClickLister = this, busAlarmClickLister = this)
-        rcMyPageList.adapter = myPageAdapter
-        rcMyPageList.layoutManager = LinearLayoutManager(activity)
-
-        setEmptyView()
-
-        myPageAdapter.notifyDataSetChanged()
+        return list
     }
 
 
     override fun onBusStopClick(busStop: BusStop) {
-        var callBusLineData : BusLine? = null
         activity?.apply {
             if (this is MainActivity) {
-                val busLineDataList = this.busLineData
-                for (busLine in busLineDataList) {
-                    if (callBusLineData != null) {
-                        break
-                    }
-                    for (busStopData in busLine.busStops) {
-                        if (busStopData.index == busStop.index) {
-                            callBusLineData = busLine
-                            break
-                        }
-                    }
+                this.busLineData.firstOrNull { busLine ->
+                    busLine.busStops.firstOrNull { busStopData ->
+                        busStopData.index == busStop.index
+                    } != null
+                }?.let {
+                    startActivity(
+                        Intent(context, LineDetailsActivity::class.java)
+                            .putExtra(BUS_LINE, it)
+                    )
                 }
             }
-        }
-
-        if(callBusLineData != null) {
-            startActivity(
-                Intent(context, LineDetailsActivity::class.java)
-                    .putExtra(BUS_LINE, callBusLineData)
-            )
         }
     }
 

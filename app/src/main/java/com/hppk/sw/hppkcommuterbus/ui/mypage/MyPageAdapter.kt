@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.item_title.view.*
 
 
 class MyPageAdapter(
-    val list : MutableList<Any>,
+    var list : MutableList<Any> = mutableListOf(),
     private var context : Context? = null,
     private val busLineClickListener : BusLineClickLister,
     private val busStopClickListener : BusStopClickListener,
