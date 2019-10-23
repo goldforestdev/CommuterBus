@@ -17,7 +17,6 @@
     <string name="unexpected_error">예기치 못한 오류 발생</string>
     <string name="hppk_bus_noti_channel_name">HPPK 통근 버스 알림</string>
     <string name="bus_alarm">버스 알림</string>
-<<<<<<< HEAD
     <string name="settings">설정</string>
     <string name="alarm_time_setting">알람 시간 설정</string>
     <string name="alarm_distance_setting">알람 거리 설정</string>
@@ -29,7 +28,6 @@
     <string name="version">버전</string>
     <string name="send_feedback_email_subject">[%1$s][%2$s] 문의 및 문제점 신고</string>
     <string name="send_feedback_email_details">기기명: \n안드로이드 OS 버전: \n문제 상세 내용: \n</string>
-=======
+
     <string name="no_data">데이터 없음</string>
->>>>>>> image icon 변경 & mypage no data 표시 처리 추가
 </resources>
