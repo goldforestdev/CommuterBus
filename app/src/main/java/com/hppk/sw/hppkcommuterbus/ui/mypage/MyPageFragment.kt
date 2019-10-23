@@ -13,22 +13,28 @@ import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hppk.sw.hppkcommuterbus.R
-import com.hppk.sw.hppkcommuterbus.data.local.LocalDataSource
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.data.model.Type
+import com.hppk.sw.hppkcommuterbus.data.repository.AlarmRepository
+import com.hppk.sw.hppkcommuterbus.data.repository.FavoriteRepository
+import com.hppk.sw.hppkcommuterbus.data.repository.source.local.PrefAlarmDao
+import com.hppk.sw.hppkcommuterbus.data.repository.source.local.PrefFavoriteDao
 import com.hppk.sw.hppkcommuterbus.ui.MainActivity
-import com.hppk.sw.hppkcommuterbus.ui.buslines.BusLinesAdapter
 import com.hppk.sw.hppkcommuterbus.ui.details.BUS_LINE
 import com.hppk.sw.hppkcommuterbus.ui.details.LineDetailsActivity
-import com.hppk.sw.hppkcommuterbus.ui.splash.SplashPresenter
 import kotlinx.android.synthetic.main.fragment_my_page.*
 
 class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineClickLister
     , MyPageAdapter.BusStopClickListener, MyPageAdapter.BusFavoritesClickLister, MyPageAdapter.BusAlarmClickLister {
 
-    private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(activity) }
-    private val presenter: MyPageContract.Presenter by lazy { MyPagePresenter(this) }
+    private val presenter: MyPageContract.Presenter by lazy {
+        val pref = PreferenceManager.getDefaultSharedPreferences(context)
+        MyPagePresenter(this,
+            AlarmRepository(PrefAlarmDao(pref)),
+            FavoriteRepository(PrefFavoriteDao(pref))
+        )
+    }
     private lateinit var myPageAdapter: MyPageAdapter
     private lateinit var favoritesBusLineList :MutableList<BusLine>
     private lateinit var alarmBusLineList :MutableList<BusStop>
@@ -63,13 +69,18 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
         initData()
     }
 
-    private fun initData () {
-        presenter.loadData(pref)
+    override fun onStop() {
+        super.onStop()
+        presenter.unsubscribe()
     }
 
-    override fun onDataLoaded(favoritesList : MutableList<BusLine>, alarmList : MutableList<BusStop>){
-        favoritesBusLineList = favoritesList
-        alarmBusLineList = alarmList
+    private fun initData () {
+        presenter.loadData()
+    }
+
+    override fun onDataLoaded(favoritesList : List<BusLine>, alarmList : List<BusStop>){
+        favoritesBusLineList = favoritesList.toMutableList()
+        alarmBusLineList = alarmList.toMutableList()
         busStopMap = alarmBusLineList.groupBy { it.type }
 
         myPageAdapter.list = setMyPageData()
@@ -77,6 +88,10 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
 
         setEmptyView()
 
+    }
+
+    override fun onFavoritesSaved() {
+        // TODO
     }
 
     private fun initRecyclerView(){
@@ -148,7 +163,7 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
                 myPageAdapter.list.removeAt(index-1)
             }
             myPageAdapter.notifyDataSetChanged()
-            LocalDataSource.saveFavoriteID(pref,favoritesBusLineList)
+            presenter.saveFavorites(favoritesBusLineList)
         }
 
         setEmptyView()
@@ -172,7 +187,7 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
             }
         }
         myPageAdapter.notifyDataSetChanged()
-        LocalDataSource.saveAlarm(pref, alarmBusLineList)
+        presenter.saveAlarms(alarmBusLineList)
 
         setEmptyView()
     }

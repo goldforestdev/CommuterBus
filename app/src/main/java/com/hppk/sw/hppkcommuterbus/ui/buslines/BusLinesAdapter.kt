@@ -8,7 +8,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
-import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import kotlinx.android.synthetic.main.item_bus_list.view.*
 
@@ -37,15 +36,8 @@ class BusLinesAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is BusLinesHolder) {
             with (holder) {
-                if (CommuterBusApplication.language != "ko") {
-                    tvBusLineName.text = busLines[position].name
-                    tvBusStart.text =
-                        "${busLines[position].busStops[0].name} ${context!!.resources.getString(R.string.start)}"
-                } else {
-                    tvBusLineName.text = busLines[position].nameKr
-                    tvBusStart.text =
-                        "${busLines[position].busStops[0].nameKr} ${context!!.resources.getString(R.string.start)}"
-                }
+                tvBusLineName.text = busLines[position].busLineName
+                tvBusStart.text = "${busLines[position].busStops[0].busStopName} ${context!!.resources.getString(R.string.start)}"
                 itemView.setOnClickListener {
                     busLineClickListener.onBusLineClick(busLines[position])
                 }

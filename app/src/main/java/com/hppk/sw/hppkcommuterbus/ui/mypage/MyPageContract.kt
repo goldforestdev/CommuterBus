@@ -1,16 +1,19 @@
 package com.hppk.sw.hppkcommuterbus.ui.mypage
 
-import android.content.SharedPreferences
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 
 interface MyPageContract {
 
     interface View {
-        fun onDataLoaded(favoritesList : MutableList<BusLine>, alarmList : MutableList<BusStop>)
+        fun onDataLoaded(favoritesList: List<BusLine>, alarmList: List<BusStop>)
+        fun onFavoritesSaved()
     }
 
     interface Presenter {
-        fun loadData(pref: SharedPreferences)
+        fun unsubscribe()
+        fun loadData()
+        fun saveAlarms(alarms: MutableList<BusStop>)
+        fun saveFavorites(favorites: List<BusLine>)
     }
 }
