@@ -16,7 +16,7 @@
 
     <ImageView
         android:id="@+id/ivCurrent"
-        android:src="@drawable/selector_gps_indicator"
+        android:src="@drawable/ic_my_location"
         android:layout_width="35dp"
         android:layout_height="35dp"
         android:layout_margin="50dp"

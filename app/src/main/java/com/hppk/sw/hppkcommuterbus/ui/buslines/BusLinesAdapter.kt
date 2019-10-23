@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.item_bus_list.view.*
 
 class BusLinesAdapter(
     val busLines : MutableList<BusLine> = mutableListOf(),
-    val favorites : MutableList<String> = mutableListOf(),
+    val favorites : MutableList<BusLine> = mutableListOf(),
     private var context : Context? = null,
     private val busLineClickListener : BusLineClickListener,
     private val busFavoritesClickListener : BusFavoritesClickLister
@@ -50,7 +50,7 @@ class BusLinesAdapter(
                     busLineClickListener.onBusLineClick(busLines[position])
                 }
 
-                if (favorites.contains(busLines[position].id) ) {
+                if (favorites.contains(busLines[position]) ) {
                     ivStar.setImageResource(android.R.drawable.star_big_on)
                 } else {
                     ivStar.setImageResource(android.R.drawable.star_big_off)

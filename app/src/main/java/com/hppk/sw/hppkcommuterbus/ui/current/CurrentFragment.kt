@@ -51,8 +51,7 @@ class CurrentFragment : Fragment(), CurrentContract.View {
     }
 
     private fun setCurrentLocationView() {
-        ivCurrent.background = ShapeDrawable(OvalShape())
-        ivCurrent.clipToOutline = true
+
         ivCurrent.setOnClickListener {
             presenter.getCurrentLocation()
         }

@@ -25,7 +25,7 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
     private val busLinesAdapter: BusLinesAdapter by lazy { BusLinesAdapter(busLineClickListener = this, busFavoritesClickListener = this) }
     private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(activity) }
     private lateinit var map : Map<Type, List<BusLine>>
-    private lateinit var favoritesBusLineList :MutableList<String>
+    private lateinit var favoritesBusLineList :MutableList<BusLine>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,7 +44,7 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
         initData()
     }
 
-    override fun onFavoritesListLoaded(favoritesList : MutableList<String>) {
+    override fun onFavoritesListLoaded(favoritesList : MutableList<BusLine>) {
         favoritesBusLineList = favoritesList
         initRecyclerView()
         initRadioGroup()
@@ -90,10 +90,10 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
     }
 
     override fun onBusFavoritesClick(busLine: BusLine) {
-        if (favoritesBusLineList.contains(busLine.id)) {
-            favoritesBusLineList.remove(busLine.id)
+        if (favoritesBusLineList.contains(busLine)) {
+            favoritesBusLineList.remove(busLine)
         } else {
-            favoritesBusLineList.add(busLine.id)
+            favoritesBusLineList.add(busLine)
         }
         busLinesAdapter.favorites.clear()
         busLinesAdapter.favorites.addAll(favoritesBusLineList)

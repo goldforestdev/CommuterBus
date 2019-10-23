@@ -36,4 +36,5 @@
     <string name="send_feedback_email_subject">[%1$s][%2$s] send feedback</string>
     <string name="send_feedback_email_details">Device Model: \nAndroid OS Version: \nIssue: \n</string>
 
+    <string name="no_data">No Data</string>
 </resources>

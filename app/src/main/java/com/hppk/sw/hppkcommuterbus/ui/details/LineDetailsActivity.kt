@@ -28,8 +28,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
     private val mapView: MapView by lazy { MapView(this) }
     private val behavior: BottomSheetBehavior<ConstraintLayout> by lazy { BottomSheetBehavior.from(bottomSheet) }
     private lateinit var busLinesAdapter: BusStopsAdapter
-    private lateinit var timeAlarmList :MutableList<BusStop>
-    private lateinit var locationAlarmList :MutableList<BusStop>
+    private lateinit var alarmList :MutableList<BusStop>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -93,18 +92,12 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
 
 
 
-    override fun onAlarmListLoaded(
-        timeAlarmBusStopList: MutableList<BusStop>,
-        locationAlarmBusStopList: MutableList<BusStop>
-    ) {
-        timeAlarmList = timeAlarmBusStopList
-        locationAlarmList = locationAlarmBusStopList
+    override fun onAlarmListLoaded(alarmBusStopList: MutableList<BusStop>) {
 
-        busLinesAdapter.timeAlarmBusStops.clear()
-        busLinesAdapter.timeAlarmBusStops.addAll(timeAlarmList)
+        alarmList = alarmBusStopList
 
-        busLinesAdapter.locationAlarmBusStops.clear()
-        busLinesAdapter.locationAlarmBusStops.addAll(locationAlarmList)
+        busLinesAdapter.alarmBusStops.clear()
+        busLinesAdapter.alarmBusStops.addAll(alarmList)
 
         busLinesAdapter.notifyDataSetChanged()
     }
@@ -128,32 +121,32 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         }
     }
 
-    override fun onBusAlarmClicked (busType: Type, busStops: BusStop) {
+    override fun onBusAlarmClicked (busStops: BusStop) {
 
         val message  = if (CommuterBusApplication.language != "ko") busStops.name else busStops.nameKr
         val alarmManager = BusAlarmManager(this)
-        if (busType == Type.GO_OFFICE) {
-            if (timeAlarmList.contains(busStops)) {
-                timeAlarmList.remove(busStops)
+        if (busStops.type == Type.GO_OFFICE) {
+            if (alarmList.contains(busStops)) {
+                alarmList.remove(busStops)
                 alarmManager.unregister(busStops.index)
             } else {
-                timeAlarmList.add(busStops)
+                alarmList.add(busStops)
                 alarmManager.register(busStops.index,busStops,5*60*1000,message)
             }
-            LocalDataSource.saveTimeAlarm(pref,timeAlarmList)
-            busLinesAdapter.timeAlarmBusStops.clear()
-            busLinesAdapter.timeAlarmBusStops.addAll(timeAlarmList)
+            LocalDataSource.saveAlarm(pref,alarmList)
+            busLinesAdapter.alarmBusStops.clear()
+            busLinesAdapter.alarmBusStops.addAll(alarmList)
         } else {
-            if (locationAlarmList.contains(busStops)) {
-                locationAlarmList.remove(busStops)
+            if (alarmList.contains(busStops)) {
+                alarmList.remove(busStops)
                 alarmManager.unregister(busStops)
             } else {
-                locationAlarmList.add(busStops)
+                alarmList.add(busStops)
                 alarmManager.register(busStops.index,busStops,message)
             }
-            LocalDataSource.saveLocationAlarm(pref,locationAlarmList)
-            busLinesAdapter.locationAlarmBusStops.clear()
-            busLinesAdapter.locationAlarmBusStops.addAll(locationAlarmList)
+            LocalDataSource.saveAlarm(pref,alarmList)
+            busLinesAdapter.alarmBusStops.clear()
+            busLinesAdapter.alarmBusStops.addAll(alarmList)
         }
 
         busLinesAdapter.notifyDataSetChanged()

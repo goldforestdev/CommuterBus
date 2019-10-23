@@ -28,4 +28,6 @@
     <string name="version">버전</string>
     <string name="send_feedback_email_subject">[%1$s][%2$s] 문의 및 문제점 신고</string>
     <string name="send_feedback_email_details">기기명: \n안드로이드 OS 버전: \n문제 상세 내용: \n</string>
+
+    <string name="no_data">데이터 없음</string>
 </resources>

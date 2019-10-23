@@ -15,6 +15,7 @@ data class BusLine(
 @Parcelize
 data class BusStop(
     val index: Int = 0,
+    val type: Type = Type.GO_OFFICE,
     val name: String = "",
     val nameKr: String = "",
     val time: String = "",
