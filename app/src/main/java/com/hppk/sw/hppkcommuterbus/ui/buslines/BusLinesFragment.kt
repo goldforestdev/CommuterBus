@@ -26,6 +26,7 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
     private val pref: SharedPreferences by lazy { PreferenceManager.getDefaultSharedPreferences(activity) }
     private lateinit var map : Map<Type, List<BusLine>>
     private lateinit var favoritesBusLineList :MutableList<BusLine>
+    private var isItemClicked : Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +43,11 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        isItemClicked = false
     }
 
     override fun onFavoritesListLoaded(favoritesList : MutableList<BusLine>) {
@@ -83,10 +89,13 @@ class BusLinesFragment : Fragment(), BusLinesContract.View, BusLinesAdapter.BusL
     }
 
     override fun onBusLineClick(busLine: BusLine) {
-        startActivity(
-            Intent(context, LineDetailsActivity::class.java)
-                .putExtra(BUS_LINE, busLine)
-        )
+        if (!isItemClicked) {
+            isItemClicked = true
+            startActivity(
+                Intent(context, LineDetailsActivity::class.java)
+                    .putExtra(BUS_LINE, busLine)
+            )
+        }
     }
 
     override fun onBusFavoritesClick(busLine: BusLine) {
