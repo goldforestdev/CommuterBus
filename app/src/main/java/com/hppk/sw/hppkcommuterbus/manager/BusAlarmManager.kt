@@ -13,9 +13,6 @@ import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.receiver.AlarmReceiver
 import com.hppk.sw.hppkcommuterbus.receiver.GeofenceBroadcastReceiver
 import com.hppk.sw.hppkcommuterbus.receiver.KEY_ALARM_BUS_STOP
-import com.hppk.sw.hppkcommuterbus.receiver.KEY_ALARM_MESSAGE
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 class BusAlarmManager(
@@ -28,29 +25,16 @@ class BusAlarmManager(
         LocationServices.getGeofencingClient(context)
     }
 
-    fun register(alarmId: Int, busStop: BusStop, time: Long, msg: String) {
+    fun register(alarmId: Int, busStop: BusStop, time: Long) {
         val intent = Intent(context, AlarmReceiver::class.java)
-        intent.putExtra(KEY_ALARM_MESSAGE, msg)
-
-        val calendar = Calendar.getInstance()
-        val now = calendar.timeInMillis
-
-        busStop.time.split(":").let {
-            calendar.set(Calendar.HOUR_OF_DAY, it[0].toInt())
-            calendar.set(Calendar.MINUTE, it[1].toInt())
-        }
-
-        if (calendar.timeInMillis < now) {
-            calendar.add(Calendar.DAY_OF_MONTH, 1)
-        }
-
+            .putExtra(KEY_ALARM_BUS_STOP, busStop)
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis - time, pendingIntent)
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
     }
 
-    fun register(alarmId: Int, busStop: BusStop, msg: String) {
+    fun register(alarmId: Int, busStop: BusStop) {
         val intent = Intent(context, GeofenceBroadcastReceiver::class.java)
-            .putExtra(KEY_ALARM_MESSAGE, msg)
+        intent.putExtra(KEY_ALARM_BUS_STOP, busStop)
 
         val geofence = Geofence.Builder()
             .setRequestId(busStop.name)

@@ -30,4 +30,5 @@
     <string name="send_feedback_email_details">기기명: \n안드로이드 OS 버전: \n문제 상세 내용: \n</string>
 
     <string name="no_data">데이터 없음</string>
+    <string name="bus_alarm_go_office_time">버스가 잠시 후 %1$d분 뒤에 도착 예정입니다.</string>
 </resources>

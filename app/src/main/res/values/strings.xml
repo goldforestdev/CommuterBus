@@ -37,4 +37,5 @@
     <string name="send_feedback_email_details">Device Model: \nAndroid OS Version: \nIssue: \n</string>
 
     <string name="no_data">No Data</string>
+    <string name="bus_alarm_go_office_time">Bus will come after %1$d minutes.</string>
 </resources>

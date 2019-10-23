@@ -22,9 +22,11 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
     , BusStopsAdapter.BusAlarmClickListener, LineDetailsContract.View {
 
     private val presenter: LineDetailsContract.Presenter by lazy {
-        LineDetailsPresenter(this,
-            AlarmRepository(PrefAlarmDao(PreferenceManager.getDefaultSharedPreferences(this))),
-            BusAlarmManager(this)
+        val pref = PreferenceManager.getDefaultSharedPreferences(this)
+        LineDetailsPresenter(this, this,
+            AlarmRepository(PrefAlarmDao(pref)),
+            BusAlarmManager(this),
+            pref
         )
     }
     private val mapView: MapView by lazy { MapView(this) }
