@@ -34,6 +34,7 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
     private lateinit var alarmBusLineList :MutableList<BusStop>
     private lateinit var busStopMap : Map<Type, List<BusStop>>
     private val TAG = MyPageFragment::class.java.simpleName
+    private var emptyView: View? = null
 
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +98,8 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
         rcMyPageList.adapter = myPageAdapter
         rcMyPageList.layoutManager = LinearLayoutManager(activity)
 
+        setEmptyView()
+
         myPageAdapter.notifyDataSetChanged()
     }
 
@@ -145,6 +148,8 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
             myPageAdapter.notifyDataSetChanged()
             LocalDataSource.saveFavoriteID(pref,favoritesBusLineList)
         }
+
+        setEmptyView()
     }
 
     override fun onAlarmClick(index: Int, busStop: BusStop) {
@@ -166,6 +171,18 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
         }
         myPageAdapter.notifyDataSetChanged()
         LocalDataSource.saveAlarm(pref, alarmBusLineList)
+
+        setEmptyView()
+    }
+
+    private fun setEmptyView() {
+        if (myPageAdapter.list.isEmpty()) {
+            rcMyPageList.visibility = View.GONE
+            ll_no_data.visibility = View.VISIBLE
+        } else {
+            rcMyPageList.visibility = View.VISIBLE
+            ll_no_data.visibility = View.GONE
+        }
     }
 
     private fun getMapSize(key : Type) : Int = busStopMap.getValue(key).size
@@ -180,5 +197,4 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
             busStopMap = alarmBusLineList.groupBy { it.type }
         }
     }
-
 }

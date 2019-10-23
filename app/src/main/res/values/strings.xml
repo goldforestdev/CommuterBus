@@ -20,4 +20,5 @@
     <string name="unexpected_error">Unexpected error</string>
     <string name="hppk_bus_noti_channel_name">HPPK Commuter Bus Notification</string>
     <string name="bus_alarm">Bus Alarm</string>
+    <string name="no_data">No Data</string>
 </resources>

@@ -17,4 +17,5 @@
     <string name="unexpected_error">예기치 못한 오류 발생</string>
     <string name="hppk_bus_noti_channel_name">HPPK 통근 버스 알림</string>
     <string name="bus_alarm">버스 알림</string>
+    <string name="no_data">데이터 없음</string>
 </resources>
