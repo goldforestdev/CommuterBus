@@ -22,7 +22,10 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         }
 
         if (geofencingEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            val message = intent.getStringExtra(KEY_ALARM_MESSAGE)
+            val message = when {
+                intent.hasExtra(KEY_ALARM_MESSAGE) -> intent.getStringExtra(KEY_ALARM_MESSAGE)
+                else -> ""
+            }
             NotiManager.notify(context, context.getString(R.string.bus_alarm), message)
         }
     }

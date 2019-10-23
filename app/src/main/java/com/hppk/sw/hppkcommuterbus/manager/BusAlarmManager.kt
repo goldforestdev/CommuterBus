@@ -25,17 +25,12 @@ class BusAlarmManager(
     private val TAG = BusAlarmManager::class.java.simpleName
     private val alarmManager: AlarmManager by lazy { context.getSystemService(Context.ALARM_SERVICE) as AlarmManager }
     private val geofencingClient: GeofencingClient by lazy {
-        LocationServices.getGeofencingClient(
-            context
-        )
+        LocationServices.getGeofencingClient(context)
     }
 
     fun register(alarmId: Int, busStop: BusStop, time: Long, msg: String) {
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra(KEY_ALARM_MESSAGE, msg)
-        intent.putExtra(KEY_ALARM_BUS_STOP, busStop)
-
-        val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val calendar = Calendar.getInstance()
         val now = calendar.timeInMillis
@@ -49,15 +44,13 @@ class BusAlarmManager(
             calendar.add(Calendar.DAY_OF_MONTH, 1)
         }
 
+        val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.timeInMillis - time, pendingIntent)
     }
 
     fun register(alarmId: Int, busStop: BusStop, msg: String) {
         val intent = Intent(context, GeofenceBroadcastReceiver::class.java)
             .putExtra(KEY_ALARM_MESSAGE, msg)
-            .putExtra(KEY_ALARM_BUS_STOP, busStop)
-        val geofencePendingIntent =
-            PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
         val geofence = Geofence.Builder()
             .setRequestId(busStop.name)
@@ -68,8 +61,15 @@ class BusAlarmManager(
             .build()
 
         val geofenceRequest = getGeofencingRequest(geofence)
-
-        geofencingClient.addGeofences(geofenceRequest, geofencePendingIntent)
+        val geofencePendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
+        geofencingClient.addGeofences(geofenceRequest, geofencePendingIntent)?.run {
+            addOnSuccessListener {
+                Log.d(TAG, "[BUS] register - geofence: success")
+            }
+            addOnFailureListener { t ->
+                Log.e(TAG, "[BUS] register - geofence: failed: ${t.message}", t)
+            }
+        }
     }
 
     private fun getGeofencingRequest(geofence: Geofence): GeofencingRequest =
@@ -88,7 +88,14 @@ class BusAlarmManager(
     }
 
     fun unregister(busStop: BusStop) {
-        geofencingClient.removeGeofences(listOf(busStop.name))
+        geofencingClient.removeGeofences(listOf(busStop.name))?.run {
+            addOnSuccessListener {
+                Log.d(TAG, "[BUS] unregister - geofence: success")
+            }
+            addOnFailureListener { t ->
+                Log.e(TAG, "[BUS] unregister - geofence: failed: ${t.message}", t)
+            }
+        }
     }
 
 }
