@@ -3,14 +3,10 @@ package com.hppk.sw.hppkcommuterbus.application
 import android.os.Build
 import androidx.multidex.MultiDexApplication
 import com.hppk.sw.hppkcommuterbus.manager.NotiManager
-import java.util.*
 
-class CommuterBusApplication : MultiDexApplication () {
+var language: String? = null
 
-    companion object {
-        var language : String ? = null
-
-    }
+class CommuterBusApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
@@ -18,14 +14,10 @@ class CommuterBusApplication : MultiDexApplication () {
         NotiManager.createChannel(this)
     }
 
-    private fun getLanguage(): String {
-        val locale: Locale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            resources.configuration.locales.get(0)
-        } else {
-            resources.configuration.locale
-        }
-        return locale.language
-    }
+    private fun getLanguage() = when {
+        Build.VERSION.SDK_INT >= Build.VERSION_CODES.N -> resources.configuration.locales.get(0)
+        else -> resources.configuration.locale
+    }.language
 
 
 }

@@ -41,11 +41,7 @@ class BusStopsAdapter (
             busStops.size - 1 -> holder.itemView.viewBottomBar.visibility = View.INVISIBLE
         }
 
-        holder.itemView.tvName.text = if (CommuterBusApplication.language!= "ko") {
-            busStop.name
-        } else {
-            busStop.nameKr
-        }
+        holder.itemView.tvName.text = busStop.busStopName
         if (busStop.index == 0) {
             holder.itemView.ivAlarm.visibility = View.GONE
         } else {

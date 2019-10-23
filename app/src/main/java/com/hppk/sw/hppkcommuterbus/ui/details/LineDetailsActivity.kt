@@ -7,7 +7,6 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.hppk.sw.hppkcommuterbus.R
-import com.hppk.sw.hppkcommuterbus.application.CommuterBusApplication
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.data.model.Type
@@ -84,12 +83,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         mapView.addPOIItems(
             busLine.busStops.map { busStop ->
                 MapPOIItem().apply {
-                    itemName = if (CommuterBusApplication.language != "ko") {
-                        busStop.name
-                    } else {
-                        busStop.nameKr
-                    }
-
+                    itemName = busStop.busStopName
                     mapPoint = MapPoint.mapPointWithGeoCoord(busStop.lat, busStop.lng)
                     markerType = MapPOIItem.MarkerType.BluePin
                     selectedMarkerType = MapPOIItem.MarkerType.RedPin
@@ -119,7 +113,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         }
 
         mapView.poiItems.first {
-            it.itemName == if (CommuterBusApplication.language =="ko") busStop.nameKr else busStop.name
+            it.itemName == busStop.busStopName
         }.let {
             mapView.selectPOIItem(it, true)
 
@@ -134,7 +128,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
 
     override fun onBusAlarmClicked (busStops: BusStop) {
 
-        val message  = if (CommuterBusApplication.language != "ko") busStops.name else busStops.nameKr
+        val message  = busStops.busStopName
         val alarmManager = BusAlarmManager(this)
         if (busStops.type == Type.GO_OFFICE) {
             if (alarmList.contains(busStops)) {

@@ -1,6 +1,7 @@
 package com.hppk.sw.hppkcommuterbus.data.model
 
 import android.os.Parcelable
+import com.hppk.sw.hppkcommuterbus.application.language
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -10,7 +11,12 @@ data class BusLine(
     val name: String = "",
     val nameKr: String = "",
     val busStops: List<BusStop> = listOf()
-) : Parcelable
+) : Parcelable {
+
+    val busLineName: String
+        get() = if (language != "ko") name else nameKr
+
+}
 
 @Parcelize
 data class BusStop(
@@ -21,7 +27,12 @@ data class BusStop(
     val time: String = "",
     val lat: Double = 0.0,
     val lng: Double = 0.0
-) : Parcelable
+) : Parcelable {
+
+    val busStopName: String
+        get() = if (language != "ko") name else nameKr
+
+}
 
 enum class Type {
     GO_OFFICE,

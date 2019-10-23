@@ -85,37 +85,29 @@ class MyPageAdapter(
 
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val obj = list[position]
-
         when (holder) {
             is TitleHolder -> with(holder) {
-                tvTitle.text = (obj as String)
+                tvTitle.text = list[position] as String
             }
             is BusAlarmHolder -> with(holder) {
-                tvName.text =
-                    if (CommuterBusApplication.language != "ko") (obj as BusStop).name else (obj as BusStop).nameKr
-
-                tvTime.text = obj.time
+                val busStop = list[position] as BusStop
+                tvName.text = busStop.busStopName
+                tvTime.text = busStop.time
                 ivAlarm.setImageResource(R.drawable.ic_alarm_selected)
-                ivAlarm.setOnClickListener { busAlarmClickLister.onAlarmClick(position,obj) }
-                itemView.setOnClickListener { busStopClickListener.onBusStopClick(obj) }
+                ivAlarm.setOnClickListener { busAlarmClickLister.onAlarmClick(position, busStop) }
+                itemView.setOnClickListener { busStopClickListener.onBusStopClick(busStop) }
             }
             is FavoriteHolder -> with(holder) {
-                if (CommuterBusApplication.language != "ko") {
-                    tvBusLineName.text = (obj as BusLine).name
-                    tvBusStart.text =
-                        "${obj.busStops[0].name} ${context!!.resources.getString(R.string.start)}"
-                } else {
-                    tvBusLineName.text = (obj as BusLine).nameKr
-                    tvBusStart.text =
-                        "${obj.busStops[0].nameKr} ${context!!.resources.getString(R.string.start)}"
-                }
+                val busLine = list[position] as BusLine
+                tvBusLineName.text = busLine.busLineName
+                tvBusStart.text = "${busLine.busStops[0].busStopName} ${context!!.resources.getString(R.string.start)}"
+
                 ivStar.setImageResource(android.R.drawable.star_big_on)
                 ivStar.setOnClickListener {
-                    busFavoritesClickLister.onFavoritesClick(position,obj)
+                    busFavoritesClickLister.onFavoritesClick(position, busLine)
                 }
                 itemView.setOnClickListener {
-                    busLineClickListener.onBusLineClick(obj)
+                    busLineClickListener.onBusLineClick(busLine)
                 }
             }
         }
