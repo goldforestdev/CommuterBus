@@ -212,10 +212,10 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
     private fun checkEmptyView() {
         if (myPageAdapter.list.isEmpty()) {
             rcMyPageList.visibility = View.GONE
-            ll_no_data.visibility = View.VISIBLE
+            tvNoData.visibility = View.VISIBLE
         } else {
             rcMyPageList.visibility = View.VISIBLE
-            ll_no_data.visibility = View.GONE
+            tvNoData.visibility = View.GONE
         }
     }
 

@@ -6,6 +6,7 @@
     <string name="go_to_office">출근</string>
     <string name="off_work">퇴근</string>
     <string name="bus_lines">버스 노선 목록</string>
+    <string name="bus_stops">버스 정류장 목록</string>
     <string name="map">지도</string>
     <string name="my_page">My Page</string>
     <string name="permission_required">권한 필요</string>
