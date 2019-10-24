@@ -6,6 +6,7 @@ import android.content.Intent
 import androidx.preference.PreferenceManager
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.commons.getTomorrowAlarmTime
+import com.hppk.sw.hppkcommuterbus.commons.isHoliday
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.manager.BusAlarmManager
 import com.hppk.sw.hppkcommuterbus.manager.NotiManager
@@ -28,24 +29,16 @@ class AlarmReceiver : BroadcastReceiver() {
     }
 
     private fun handleAlarm(context: Context, intent: Intent) {
-        if (!isHoliday()) {
-            val pref = PreferenceManager.getDefaultSharedPreferences(context)
-            val minute = pref.getInt(context.getString(R.string.key_alarm_go_office_time), 0)
-            val time = minute * 60 * 1000
-
-            NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_office_time, minute))
-            registerNextAlarm(intent, context, time.toLong())
+        if (isHoliday()) {
+            return
         }
-    }
 
-    private fun isHoliday(): Boolean {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = System.currentTimeMillis()
-        return when (calendar.get(Calendar.DAY_OF_WEEK)) {
-            Calendar.SATURDAY,
-            Calendar.SUNDAY -> true
-            else -> false
-        }
+        val pref = PreferenceManager.getDefaultSharedPreferences(context)
+        val minute = pref.getInt(context.getString(R.string.key_alarm_go_office_time), 0)
+        val time = minute * 60 * 1000
+
+        NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_office_time, minute))
+        registerNextAlarm(intent, context, time.toLong())
     }
 
     private fun registerNextAlarm(intent: Intent, context: Context, time: Long) {
