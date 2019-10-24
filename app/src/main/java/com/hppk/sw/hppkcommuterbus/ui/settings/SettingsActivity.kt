@@ -1,6 +1,7 @@
 package com.hppk.sw.hppkcommuterbus.ui.settings
 
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.preference.Preference
@@ -20,13 +21,22 @@ class SettingsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
     class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceClickListener {
 
         private val prefAlarmTime: SeekBarPreference by lazy {
-            findPreference<Preference>(getString(R.string.key_alarm_go_office_time)) as SeekBarPreference
+            findPreference<SeekBarPreference>(getString(R.string.key_alarm_go_office_time)) as SeekBarPreference
         }
         private val prefAlarmDistance: SeekBarPreference by lazy {
-            findPreference<Preference>(getString(R.string.key_alarm_go_home_distance)) as SeekBarPreference
+            findPreference<SeekBarPreference>(getString(R.string.key_alarm_go_home_distance)) as SeekBarPreference
         }
         private val prefFeedback: Preference by lazy {
             findPreference<Preference>(getString(R.string.key_feedback)) as Preference
