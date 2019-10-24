@@ -2,6 +2,7 @@ package com.hppk.sw.hppkcommuterbus.ui.details
 
 import android.os.Bundle
 import android.preference.PreferenceManager
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -43,11 +44,26 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
         }
 
         val busLine = intent.getParcelableExtra<BusLine>(BUS_LINE)
+        initToolBar(busLine.busLineName)
         initBusLineMap(busLine)
         initBusLineList(busLine)
         initData()
 
         mapContainer.addView(mapView)
+    }
+
+    private fun initToolBar(busLineName: String) {
+        title = busLineName
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        if (item?.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onStop() {
@@ -73,7 +89,7 @@ class LineDetailsActivity : AppCompatActivity(), BusStopsAdapter.BusStopClickLis
     private fun initBusLineMap(busLine: BusLine) {
         val polyline = MapPolyline()
         polyline.tag = 1000
-        polyline.lineColor = resources.getColor(R.color.colorAccent)
+        polyline.lineColor = resources.getColor(R.color.colorPrimaryDark)
         polyline.addPoints(
             busLine.busStops.map { busStop ->
                 MapPoint.mapPointWithGeoCoord(busStop.lat, busStop.lng)

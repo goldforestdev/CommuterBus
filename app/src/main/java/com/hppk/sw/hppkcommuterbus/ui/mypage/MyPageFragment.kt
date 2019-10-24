@@ -41,9 +41,8 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
     private lateinit var alarmBusLineList :MutableList<BusStop>
     private lateinit var busStopMap : Map<Type, List<BusStop>>
     private val TAG = MyPageFragment::class.java.simpleName
-    private var emptyView: View? = null
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             activity?.finish()
@@ -212,10 +211,10 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
     private fun checkEmptyView() {
         if (myPageAdapter.list.isEmpty()) {
             rcMyPageList.visibility = View.GONE
-            ll_no_data.visibility = View.VISIBLE
+            tvNoData.visibility = View.VISIBLE
         } else {
             rcMyPageList.visibility = View.VISIBLE
-            ll_no_data.visibility = View.GONE
+            tvNoData.visibility = View.GONE
         }
     }
 

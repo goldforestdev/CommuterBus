@@ -92,22 +92,4 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
         }, 500)
     }
 
-    private fun printHashKey() {
-        try {
-            val info: PackageInfo = packageManager.getPackageInfo(
-                "com.hppk.sw.hppkcommuterbus",
-                PackageManager.GET_SIGNATURES
-            )
-            for (signature in info.signatures) {
-                val md = MessageDigest.getInstance("SHA")
-                md.update(signature.toByteArray())
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT))
-            }
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-        } catch (e: NoSuchAlgorithmException) {
-            e.printStackTrace()
-        }
-    }
-
 }

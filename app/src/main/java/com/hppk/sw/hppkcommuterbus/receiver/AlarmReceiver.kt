@@ -15,8 +15,6 @@ const val KEY_ALARM_BUS_STOP = "KEY_ALARM_BUS_STOP"
 
 class AlarmReceiver : BroadcastReceiver() {
 
-    private val TAG = AlarmReceiver::class.java.simpleName
-
     override fun onReceive(context: Context, intent: Intent) {
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             handleBootCompleted(context)
