@@ -4,6 +4,7 @@
     <string name="key_alarm_go_home_distance" translatable="false">key_alarm_go_home_distance</string>
     <string name="key_feedback" translatable="false">key_feedback</string>
     <string name="key_version" translatable="false">key_version</string>
+    <string name="key_developers" translatable="false">key_developers</string>
 
     <string name="app_name">HPPK Commuter Bus</string>
     <string name="splash_bottom_text" translatable="false">Copyright<![CDATA[ⓒ]]> 2019 Gold Forest Team.</string>
@@ -26,8 +27,8 @@
     <string name="settings">Settings</string>
     <string name="alarm_time_setting">Alarm Time Setting</string>
     <string name="alarm_distance_setting">Alarm Distance Setting</string>
-    <string name="alarm_time_setting_details">Alarm time settings details</string>
-    <string name="alarm_distance_setting_details">Alarm distance setting details</string>
+    <string name="alarm_time_setting_details">Alarm time settings details (unit: Minutes)</string>
+    <string name="alarm_distance_setting_details">Alarm distance setting details (unit: Meter)</string>
     <string name="app_info">App Informations</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="send_feedback_details">Report technical issues or suggest new features</string>
@@ -39,7 +40,13 @@
     <string name="no_data">No Data</string>
     <string name="bus_alarm_go_office_time">Bus will come after %1$d minutes.</string>
     <string name="bus_alarm_go_home_distance">The bus is coming soon to your destination.</string>
-
+  
     <string name="delete_favorite_bus">Do you want to delete your favorite bus routes?</string>
     <string name="delete_alarm_bus">Do you want to delete the bus alarms?</string>
+
+    <string name="developers">Developers</string>
+    <string name="dev_hjkim">Hyeongju Teddy Kim</string>
+    <string name="dev_hjkim_email" translatable="false">hyeongju.kim@hp.com</string>
+    <string name="dev_yhkim">Yoonho Aarom Kim</string>
+    <string name="dev_yhkim_email" translatable="false">yoonho.kim@hp.com</string>
 </resources>
