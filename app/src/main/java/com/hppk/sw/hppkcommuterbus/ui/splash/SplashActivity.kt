@@ -2,13 +2,10 @@ package com.hppk.sw.hppkcommuterbus.ui.splash
 
 import android.Manifest
 import android.content.Intent
-import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
-import android.util.Base64
-import android.util.Log
 import android.view.Window
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -17,8 +14,6 @@ import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.ui.KEY_BUS_LINES
 import com.hppk.sw.hppkcommuterbus.ui.MainActivity
-import java.security.MessageDigest
-import java.security.NoSuchAlgorithmException
 
 
 private const val PERMISSION_REQUEST_CODE = 1200
@@ -42,7 +37,6 @@ class SplashActivity : AppCompatActivity(), SplashContract.View {
                 )
             }
         }
-//        printHashKey() // TODO: for debug
     }
 
     override fun onStop() {
