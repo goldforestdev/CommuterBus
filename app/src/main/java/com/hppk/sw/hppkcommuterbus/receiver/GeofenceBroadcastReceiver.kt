@@ -7,6 +7,7 @@ import android.util.Log
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.manager.NotiManager
 
 
@@ -22,11 +23,8 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         }
 
         if (geofencingEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            val message = when {
-                intent.hasExtra(KEY_ALARM_MESSAGE) -> intent.getStringExtra(KEY_ALARM_MESSAGE)
-                else -> ""
-            }
-            NotiManager.notify(context, context.getString(R.string.bus_alarm), message)
+            val busStop = intent.getParcelableExtra<BusStop>(KEY_ALARM_BUS_STOP)
+            NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_home_distance))
         }
     }
 

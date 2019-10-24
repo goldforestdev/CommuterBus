@@ -1,6 +1,10 @@
 package com.hppk.sw.hppkcommuterbus.ui.details
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
+import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.commons.getAlarmTime
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.data.model.Type
 import com.hppk.sw.hppkcommuterbus.data.repository.AlarmRepository
@@ -12,8 +16,10 @@ import io.reactivex.schedulers.Schedulers
 
 class LineDetailsPresenter(
     private val view: LineDetailsContract.View,
+    private val context: Context,
     private val alarmRepo: AlarmRepository,
     private val alarmManager: BusAlarmManager,
+    private val pref: SharedPreferences,
     private val ioScheduler: Scheduler = Schedulers.io(),
     private val uiScheduler: Scheduler = AndroidSchedulers.mainThread(),
     private val disposable: CompositeDisposable = CompositeDisposable()
@@ -53,9 +59,10 @@ class LineDetailsPresenter(
 
     override fun registerAlarm(busStop: BusStop) {
         if (busStop.type == Type.GO_OFFICE) {
-            alarmManager.register(busStop.index, busStop, 5 * 60 * 1000, busStop.busStopName)
+            val time = pref.getLong(context.getString(R.string.key_alarm_go_office_time), 0L)
+            alarmManager.register(busStop.index, busStop, getAlarmTime(busStop) - time)
         } else {
-            alarmManager.register(busStop.index, busStop, busStop.busStopName)
+            alarmManager.register(busStop.index, busStop)
         }
 
         saveAlarm(busStop)
