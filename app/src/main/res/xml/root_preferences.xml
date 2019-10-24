@@ -5,15 +5,25 @@
 
     <PreferenceCategory android:title="@string/bus_alarm">
 
-        <Preference
+        <SeekBarPreference
             app:key="@string/key_alarm_go_office_time"
             app:title="@string/alarm_time_setting"
-            android:summary="@string/alarm_time_setting_details"/>
+            app:showSeekBarValue="true"
+            android:summary="@string/alarm_time_setting_details"
+            android:defaultValue="5"
+            android:max="60"
+            app:seekBarIncrement="5"
+            app:min="5"/>
 
-        <Preference
+        <SeekBarPreference
             app:key="@string/key_alarm_go_home_distance"
             app:title="@string/alarm_distance_setting"
-            android:summary="@string/alarm_distance_setting_details"/>
+            app:showSeekBarValue="true"
+            android:summary="@string/alarm_distance_setting_details"
+            android:defaultValue="1000"
+            android:max="3000"
+            app:seekBarIncrement="100"
+            app:min="500"/>
 
     </PreferenceCategory>
 

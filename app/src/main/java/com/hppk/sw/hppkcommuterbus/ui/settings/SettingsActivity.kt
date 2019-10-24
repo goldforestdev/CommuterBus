@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ShareCompat
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SeekBarPreference
 import com.hppk.sw.hppkcommuterbus.R
 
 class SettingsActivity : AppCompatActivity() {
@@ -21,11 +22,11 @@ class SettingsActivity : AppCompatActivity() {
 
     class SettingsFragment : PreferenceFragmentCompat(), Preference.OnPreferenceClickListener {
 
-        private val prefAlarmTime: Preference by lazy {
-            findPreference<Preference>(getString(R.string.key_alarm_go_office_time)) as Preference
+        private val prefAlarmTime: SeekBarPreference by lazy {
+            findPreference<Preference>(getString(R.string.key_alarm_go_office_time)) as SeekBarPreference
         }
-        private val prefAlarmDistance: Preference by lazy {
-            findPreference<Preference>(getString(R.string.key_alarm_go_home_distance)) as Preference
+        private val prefAlarmDistance: SeekBarPreference by lazy {
+            findPreference<Preference>(getString(R.string.key_alarm_go_home_distance)) as SeekBarPreference
         }
         private val prefFeedback: Preference by lazy {
             findPreference<Preference>(getString(R.string.key_feedback)) as Preference

@@ -59,7 +59,7 @@ class LineDetailsPresenter(
 
     override fun registerAlarm(busStop: BusStop) {
         if (busStop.type == Type.GO_OFFICE) {
-            val time = pref.getLong(context.getString(R.string.key_alarm_go_office_time), 0L)
+            val time = pref.getInt(context.getString(R.string.key_alarm_go_office_time), 0) * 60 * 1000
             alarmManager.register(busStop.index, busStop, getAlarmTime(busStop) - time)
         } else {
             alarmManager.register(busStop.index, busStop)

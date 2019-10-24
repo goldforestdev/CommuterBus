@@ -3,8 +3,6 @@ package com.hppk.sw.hppkcommuterbus.receiver
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.util.Log
 import androidx.preference.PreferenceManager
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.commons.getTomorrowAlarmTime
@@ -20,7 +18,6 @@ class AlarmReceiver : BroadcastReceiver() {
     private val TAG = AlarmReceiver::class.java.simpleName
 
     override fun onReceive(context: Context, intent: Intent) {
-        Log.d(TAG, "[BUS] onReceive")
         if (Intent.ACTION_BOOT_COMPLETED == intent.action) {
             handleBootCompleted(context)
         } else {
@@ -35,13 +32,11 @@ class AlarmReceiver : BroadcastReceiver() {
     private fun handleAlarm(context: Context, intent: Intent) {
         if (!isHoliday()) {
             val pref = PreferenceManager.getDefaultSharedPreferences(context)
-            val time = pref.getLong(context.getString(R.string.key_alarm_go_office_time), 0L)
-            val minute = (time / 1000 / 60).toInt()
+            val minute = pref.getInt(context.getString(R.string.key_alarm_go_office_time), 0)
+            val time = minute * 60 * 1000
 
             NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_office_time, minute))
-
-            val busStop = intent.getParcelableExtra<BusStop>(KEY_ALARM_BUS_STOP)
-            BusAlarmManager(context).register(busStop.index, busStop, getTomorrowAlarmTime(busStop) - time)
+            registerNextAlarm(intent, context, time.toLong())
         }
     }
 
@@ -53,6 +48,11 @@ class AlarmReceiver : BroadcastReceiver() {
             Calendar.SUNDAY -> true
             else -> false
         }
+    }
+
+    private fun registerNextAlarm(intent: Intent, context: Context, time: Long) {
+        val busStop = intent.getParcelableExtra<BusStop>(KEY_ALARM_BUS_STOP)
+        BusAlarmManager(context).register(busStop.index, busStop, getTomorrowAlarmTime(busStop) - time)
     }
 
 }

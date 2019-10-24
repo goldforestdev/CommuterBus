@@ -26,8 +26,8 @@
     <string name="settings">Settings</string>
     <string name="alarm_time_setting">Alarm Time Setting</string>
     <string name="alarm_distance_setting">Alarm Distance Setting</string>
-    <string name="alarm_time_setting_details">Alarm time settings details</string>
-    <string name="alarm_distance_setting_details">Alarm distance setting details</string>
+    <string name="alarm_time_setting_details">Alarm time settings details (unit: Minutes)</string>
+    <string name="alarm_distance_setting_details">Alarm distance setting details (unit: Meter)</string>
     <string name="app_info">App Informations</string>
     <string name="send_feedback">Send Feedback</string>
     <string name="send_feedback_details">Report technical issues or suggest new features</string>
