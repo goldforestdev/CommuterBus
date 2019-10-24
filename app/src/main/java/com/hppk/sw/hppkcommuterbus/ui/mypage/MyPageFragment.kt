@@ -5,11 +5,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.util.Log
+import android.view.ContextThemeWrapper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
@@ -85,7 +87,7 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
         myPageAdapter.list = setMyPageData()
         myPageAdapter.notifyDataSetChanged()
 
-        setEmptyView()
+        checkEmptyView()
 
     }
 
@@ -155,43 +157,59 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
     }
 
     override fun onFavoritesClick(index: Int, busLine: BusLine) {
-        if (favoritesBusLineList.contains(busLine)) {
-            favoritesBusLineList.remove(busLine)
-            myPageAdapter.list.removeAt(index)
-            if(favoritesBusLineList.size == 0) {
-                myPageAdapter.list.removeAt(index-1)
-            }
-            myPageAdapter.notifyDataSetChanged()
-            presenter.saveFavorites(favoritesBusLineList)
-        }
 
-        setEmptyView()
+        val builder = AlertDialog.Builder(ContextThemeWrapper(activity, R.style.Theme_AppCompat_Light_Dialog))
+        builder.setTitle(R.string.favorites)
+        builder.setMessage(R.string.delete_favorite_bus)
+        builder.setPositiveButton(android.R.string.ok) { _, _ ->
+            if (favoritesBusLineList.contains(busLine)) {
+                favoritesBusLineList.remove(busLine)
+                myPageAdapter.list.removeAt(index)
+                if(favoritesBusLineList.size == 0) {
+                    myPageAdapter.list.removeAt(index-1)
+                }
+                myPageAdapter.notifyDataSetChanged()
+                presenter.saveFavorites(favoritesBusLineList)
+            }
+
+            checkEmptyView()
+        }
+        builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
+        builder.show()
     }
 
     override fun onAlarmClick(index: Int, busStop: BusStop) {
-        if (busStop.type == Type.GO_OFFICE) {
-            alarmListRemove(busStop, index)
-            try {
-                Log.i(TAG,getMapSize(Type.GO_OFFICE).toString())
-            } catch (e : NoSuchElementException) {
-                myPageAdapter.list.removeAt(index-1)
-            }
+        val builder = AlertDialog.Builder(ContextThemeWrapper(activity, R.style.Theme_AppCompat_Light_Dialog))
+        builder.setTitle(R.string.bus_alarm)
+        builder.setMessage(R.string.delete_alarm_bus)
+        builder.setPositiveButton(android.R.string.ok) { _, _ ->
+            if (busStop.type == Type.GO_OFFICE) {
+                alarmListRemove(busStop, index)
+                try {
+                    Log.i(TAG,getMapSize(Type.GO_OFFICE).toString())
+                } catch (e : NoSuchElementException) {
+                    myPageAdapter.list.removeAt(index-1)
+                }
 
-        } else {
-            alarmListRemove(busStop, index)
-            try {
-                Log.i(TAG,getMapSize(Type.LEAVE_OFFICE).toString())
-            } catch (e : NoSuchElementException) {
-                myPageAdapter.list.removeAt(index-1)
+            } else {
+                alarmListRemove(busStop, index)
+                try {
+                    Log.i(TAG,getMapSize(Type.LEAVE_OFFICE).toString())
+                } catch (e : NoSuchElementException) {
+                    myPageAdapter.list.removeAt(index-1)
+                }
             }
+            myPageAdapter.notifyDataSetChanged()
+            presenter.saveAlarms(alarmBusLineList)
+
+            checkEmptyView()
         }
-        myPageAdapter.notifyDataSetChanged()
-        presenter.saveAlarms(alarmBusLineList)
+        builder.setNegativeButton(android.R.string.cancel) { _, _ -> }
+        builder.show()
 
-        setEmptyView()
     }
 
-    private fun setEmptyView() {
+    private fun checkEmptyView() {
         if (myPageAdapter.list.isEmpty()) {
             rcMyPageList.visibility = View.GONE
             ll_no_data.visibility = View.VISIBLE
