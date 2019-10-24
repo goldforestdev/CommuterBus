@@ -41,7 +41,7 @@
     <string name="bus_alarm_go_office_time">Bus will come after %1$d minutes.</string>
     <string name="bus_alarm_go_home_distance">The bus is coming soon to your destination.</string>
     <string name="developers">Developers</string>
-    <string name="dev_hjkim">Hyeongju Kim</string>
+    <string name="dev_hjkim">Hyeongju Teddy Kim</string>
     <string name="dev_hjkim_email" translatable="false">hyeongju.kim@hp.com</string>
     <string name="dev_yhkim">Yoonho Aarom Kim</string>
     <string name="dev_yhkim_email" translatable="false">yoonho.kim@hp.com</string>
