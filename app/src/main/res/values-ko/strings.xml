@@ -32,6 +32,9 @@
     <string name="no_data">데이터 없음</string>
     <string name="bus_alarm_go_office_time">버스가 잠시 후 %1$d분 뒤에 도착 예정입니다.</string>
     <string name="bus_alarm_go_home_distance">버스가 곧 목적지에 도착 예정입니다.</string>
+    <string name="delete_favorite_bus">즐겨 찾기 버스 노선을 삭제 하시겠습니까?</string>
+    <string name="delete_alarm_bus">버스 알림을 삭제 하시겠습니까?</string>
+    
     <string name="developers">개발자 정보</string>
     <string name="dev_hjkim">김 형주</string>
     <string name="dev_yhkim">김 윤호</string>
