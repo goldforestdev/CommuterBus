@@ -102,7 +102,7 @@ class MyPageAdapter(
                 tvBusLineName.text = busLine.busLineName
                 tvBusStart.text = "${busLine.busStops[0].busStopName} ${context!!.resources.getString(R.string.start)}"
 
-                ivStar.setImageResource(android.R.drawable.star_big_on)
+                ivStar.setImageResource(R.drawable.ic_star_selected)
                 ivStar.setOnClickListener {
                     busFavoritesClickLister.onFavoritesClick(position, busLine)
                 }

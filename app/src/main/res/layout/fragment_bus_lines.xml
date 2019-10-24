@@ -10,6 +10,7 @@
         android:id="@+id/selectLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@android:color/darker_gray"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -28,12 +29,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:checked="true"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
                 android:text="@string/go_to_office"/>
             <RadioButton
                 android:id="@+id/rbGoHome"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:textColor="@android:color/white"
                 android:layout_marginStart="10dp"
+                android:textStyle="bold"
                 android:text="@string/off_work"/>
         </RadioGroup>
     </androidx.constraintlayout.widget.ConstraintLayout>
