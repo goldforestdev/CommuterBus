@@ -4,8 +4,6 @@ import android.location.Location
 import android.util.Log
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
-import com.hppk.sw.hppkcommuterbus.data.model.BusStop
-import com.hppk.sw.hppkcommuterbus.data.model.Type
 import com.hppk.sw.hppkcommuterbus.data.repository.BusLineRepository
 import com.hppk.sw.hppkcommuterbus.data.repository.source.local.LocalBusLineDao
 import com.hppk.sw.hppkcommuterbus.data.repository.source.remote.FirebaseBusLineDao

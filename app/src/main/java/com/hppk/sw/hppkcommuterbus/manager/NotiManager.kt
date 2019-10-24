@@ -7,19 +7,15 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import com.hppk.sw.hppkcommuterbus.R
-import com.hppk.sw.hppkcommuterbus.ui.MainActivity
 import com.hppk.sw.hppkcommuterbus.ui.splash.SplashActivity
 
 
 private const val CHANNEL_ID = "hppk-commuter-bus-noti-channel-id"
 
 object NotiManager {
-
-    private val TAG = NotiManager::class.java.simpleName
 
     fun createChannel(context: Context) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

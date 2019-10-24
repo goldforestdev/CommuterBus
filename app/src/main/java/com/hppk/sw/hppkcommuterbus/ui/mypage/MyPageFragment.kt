@@ -41,9 +41,8 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
     private lateinit var alarmBusLineList :MutableList<BusStop>
     private lateinit var busStopMap : Map<Type, List<BusStop>>
     private val TAG = MyPageFragment::class.java.simpleName
-    private var emptyView: View? = null
 
-        override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         requireActivity().onBackPressedDispatcher.addCallback(this) {
             activity?.finish()
