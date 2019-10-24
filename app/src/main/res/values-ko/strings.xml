@@ -31,4 +31,5 @@
 
     <string name="no_data">데이터 없음</string>
     <string name="bus_alarm_go_office_time">버스가 잠시 후 %1$d분 뒤에 도착 예정입니다.</string>
+    <string name="bus_alarm_go_home_distance">버스가 곧 목적지에 도착 예정입니다.</string>
 </resources>
