@@ -1,5 +1,6 @@
 package com.hppk.sw.hppkcommuterbus.ui.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
@@ -45,6 +46,10 @@ class SettingsActivity : AppCompatActivity() {
             findPreference<Preference>(getString(R.string.key_version)) as Preference
         }
 
+        private val prefDevelopers: Preference by lazy {
+            findPreference<Preference>(getString(R.string.key_developers)) as Preference
+        }
+
         private val appVersion: String by lazy {
             context?.applicationContext?.packageManager?.getPackageInfo(
                 context?.applicationContext?.packageName,
@@ -58,6 +63,7 @@ class SettingsActivity : AppCompatActivity() {
             prefAlarmTime.onPreferenceClickListener = this
             prefAlarmDistance.onPreferenceClickListener = this
             prefFeedback.onPreferenceClickListener = this
+            prefDevelopers.onPreferenceClickListener = this
 
             prefVersion.summary = appVersion
         }
@@ -66,6 +72,7 @@ class SettingsActivity : AppCompatActivity() {
             getString(R.string.key_alarm_go_office_time) -> true
             getString(R.string.key_alarm_go_home_distance) -> true
             getString(R.string.key_feedback) -> sendFeedback()
+            getString(R.string.key_developers) -> showDevelopers()
             else -> false
         }
 
@@ -84,6 +91,11 @@ class SettingsActivity : AppCompatActivity() {
                 .intent
 
             startActivity(emailIntent)
+            return true
+        }
+
+        private fun showDevelopers(): Boolean {
+            startActivity(Intent(activity, DevelopersActivity::class.java))
             return true
         }
     }

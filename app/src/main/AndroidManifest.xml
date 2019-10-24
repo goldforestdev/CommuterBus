@@ -15,9 +15,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ui.settings.DevelopersActivity"
+            android:label="@string/developers"></activity>
         <activity
             android:name=".ui.settings.SettingsActivity"
-            android:label="@string/settings"></activity>
+            android:label="@string/settings" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

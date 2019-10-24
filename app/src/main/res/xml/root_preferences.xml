@@ -38,6 +38,11 @@
             app:title="@string/version"
             app:summary="" />
 
+        <Preference
+            app:key="@string/key_developers"
+            app:title="@string/developers"
+            app:summary="" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
