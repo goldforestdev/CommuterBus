@@ -38,8 +38,8 @@
     <string name="send_feedback_email_details">Device Model: \nAndroid OS Version: \nIssue: \n</string>
 
     <string name="no_data">No Data</string>
-    <string name="bus_alarm_go_office_time">Bus will come after %1$d minutes.</string>
-    <string name="bus_alarm_go_home_distance">The bus is coming soon to your destination.</string>
+    <string name="bus_alarm_go_office_time">Bus will come to "%1$s" after %2$d minutes.</string>
+    <string name="bus_alarm_go_home_distance">The bus is coming soon to your destination: %1$s</string>
   
     <string name="delete_favorite_bus">Do you want to delete your favorite bus routes?</string>
     <string name="delete_alarm_bus">Do you want to delete the bus alarms?</string>

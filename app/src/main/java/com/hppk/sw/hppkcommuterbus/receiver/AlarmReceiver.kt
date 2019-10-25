@@ -36,13 +36,13 @@ class AlarmReceiver : BroadcastReceiver() {
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
         val minute = pref.getInt(context.getString(R.string.key_alarm_go_office_time), 0)
         val time = minute * 60 * 1000
+        val busStop = intent.getParcelableExtra<BusStop>(KEY_ALARM_BUS_STOP)
 
-        NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_office_time, minute))
-        registerNextAlarm(intent, context, time.toLong())
+        NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_office_time, busStop.busStopName, minute))
+        registerNextAlarm(busStop, context, time.toLong())
     }
 
-    private fun registerNextAlarm(intent: Intent, context: Context, time: Long) {
-        val busStop = intent.getParcelableExtra<BusStop>(KEY_ALARM_BUS_STOP)
+    private fun registerNextAlarm(busStop: BusStop, context: Context, time: Long) {
         BusAlarmManager(context).register(busStop.index, busStop, getTomorrowAlarmTime(busStop) - time)
     }
 
