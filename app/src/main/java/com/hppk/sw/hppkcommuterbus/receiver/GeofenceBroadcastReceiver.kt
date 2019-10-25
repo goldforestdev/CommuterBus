@@ -7,6 +7,7 @@ import android.util.Log
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
 import com.hppk.sw.hppkcommuterbus.R
+import com.hppk.sw.hppkcommuterbus.commons.isHoliday
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.manager.NotiManager
 
@@ -16,6 +17,10 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
     private val TAG = GeofenceBroadcastReceiver::class.java.simpleName
 
     override fun onReceive(context: Context, intent: Intent) {
+        if (isHoliday()) {
+            return
+        }
+
         val geofencingEvent = GeofencingEvent.fromIntent(intent)
         if (geofencingEvent.hasError()) {
             Log.e(TAG, "[BUS] onReceive - error: ${geofencingEvent.errorCode}")

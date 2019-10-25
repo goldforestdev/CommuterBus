@@ -31,3 +31,13 @@ fun getTomorrowAlarmTime(busStop: BusStop): Long {
 
     return calendar.timeInMillis
 }
+
+fun isHoliday(): Boolean {
+    val calendar = Calendar.getInstance()
+    calendar.timeInMillis = System.currentTimeMillis()
+    return when (calendar.get(Calendar.DAY_OF_WEEK)) {
+        Calendar.SATURDAY,
+        Calendar.SUNDAY -> true
+        else -> false
+    }
+}
