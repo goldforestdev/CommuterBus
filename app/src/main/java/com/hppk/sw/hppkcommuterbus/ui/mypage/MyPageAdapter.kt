@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
+import com.hppk.sw.hppkcommuterbus.data.model.Type
 import kotlinx.android.synthetic.main.item_bus_list.view.*
 import kotlinx.android.synthetic.main.item_my_page_bus_stop.view.*
 import kotlinx.android.synthetic.main.item_title.view.*
