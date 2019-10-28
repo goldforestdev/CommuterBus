@@ -101,11 +101,6 @@ class MyPageAdapter(
             is FavoriteHolder -> with(holder) {
                 val busLine = list[position] as BusLine
                 tvBusLineName.text = busLine.busLineName
-                if (busLine.type == Type.GO_OFFICE) {
-                    tvBusLineName.setTextColor(ContextCompat.getColor(context!!, android.R.color.holo_red_dark))
-                } else {
-                    tvBusLineName.setTextColor(ContextCompat.getColor(context!!, android.R.color.holo_blue_dark))
-                }
                 tvBusStart.text = "${busLine.busStops[0].busStopName} ${context!!.resources.getString(R.string.start)}"
 
                 ivStar.setImageResource(R.drawable.ic_star_selected)

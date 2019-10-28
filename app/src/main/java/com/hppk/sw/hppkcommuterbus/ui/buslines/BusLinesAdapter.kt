@@ -39,12 +39,6 @@ class BusLinesAdapter(
         if (holder is BusLinesHolder) {
             with (holder) {
                 tvBusLineName.text = busLines[position].busLineName
-                if (busLines[position].type == Type.GO_OFFICE) {
-                    tvBusLineName.setTextColor(ContextCompat.getColor(context!!, android.R.color.holo_red_dark))
-                } else {
-                    tvBusLineName.setTextColor(ContextCompat.getColor(context!!, android.R.color.holo_blue_dark))
-                }
-
                 tvBusStart.text = "${busLines[position].busStops[0].busStopName} ${context!!.resources.getString(R.string.start)}"
                 itemView.setOnClickListener {
                     busLineClickListener.onBusLineClick(busLines[position])
