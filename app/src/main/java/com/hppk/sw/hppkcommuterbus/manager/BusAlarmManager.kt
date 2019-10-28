@@ -30,6 +30,7 @@ class BusAlarmManager(
             .putExtra(KEY_ALARM_BUS_STOP, busStop)
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
+        Log.d(TAG, "[BUS] register - alarm: $busStop")
     }
 
     fun register(alarmId: Int, busStop: BusStop) {
@@ -48,7 +49,7 @@ class BusAlarmManager(
         val geofencePendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         geofencingClient.addGeofences(geofenceRequest, geofencePendingIntent)?.run {
             addOnSuccessListener {
-                Log.d(TAG, "[BUS] register - geofence: success")
+                Log.d(TAG, "[BUS] register - geofence: success: $busStop")
             }
             addOnFailureListener { t ->
                 Log.e(TAG, "[BUS] register - geofence: failed: ${t.message}", t)
