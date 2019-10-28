@@ -29,7 +29,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
 
         if (geofencingEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
             val busStop = intent.getParcelableExtra<BusStop>(KEY_ALARM_BUS_STOP)
-            NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_home_distance))
+            NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_home_distance, busStop.busStopName))
         }
     }
 

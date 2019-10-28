@@ -31,8 +31,8 @@
     <string name="send_feedback_email_details">기기명: \n안드로이드 OS 버전: \n문제 상세 내용: \n</string>
 
     <string name="no_data">데이터 없음</string>
-    <string name="bus_alarm_go_office_time">버스가 잠시 후 %1$d분 뒤에 도착 예정입니다.</string>
-    <string name="bus_alarm_go_home_distance">버스가 곧 목적지에 도착 예정입니다.</string>
+    <string name="bus_alarm_go_office_time">버스가 잠시 후 %2$d분 뒤에 "%1$s" 정류장에 도착 예정입니다.</string>
+    <string name="bus_alarm_go_home_distance">버스가 곧 목적지 "%1$s" 정류장에 도착 예정입니다.</string>
     <string name="delete_favorite_bus">즐겨 찾기 버스 노선을 삭제 하시겠습니까?</string>
     <string name="delete_alarm_bus">버스 알림을 삭제 하시겠습니까?</string>
     
