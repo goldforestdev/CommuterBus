@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
+import com.hppk.sw.hppkcommuterbus.data.model.Type
 import kotlinx.android.synthetic.main.item_bus_list.view.*
 
 class BusLinesAdapter(
@@ -37,6 +39,12 @@ class BusLinesAdapter(
         if (holder is BusLinesHolder) {
             with (holder) {
                 tvBusLineName.text = busLines[position].busLineName
+                if (busLines[position].type == Type.GO_OFFICE) {
+                    tvBusLineName.setTextColor(ContextCompat.getColor(context!!, android.R.color.holo_red_dark))
+                } else {
+                    tvBusLineName.setTextColor(ContextCompat.getColor(context!!, android.R.color.holo_blue_dark))
+                }
+
                 tvBusStart.text = "${busLines[position].busStops[0].busStopName} ${context!!.resources.getString(R.string.start)}"
                 itemView.setOnClickListener {
                     busLineClickListener.onBusLineClick(busLines[position])

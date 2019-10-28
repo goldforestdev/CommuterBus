@@ -6,10 +6,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.data.model.BusLine
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
+import com.hppk.sw.hppkcommuterbus.data.model.Type
 import kotlinx.android.synthetic.main.item_bus_list.view.*
 import kotlinx.android.synthetic.main.item_my_page_bus_stop.view.*
 import kotlinx.android.synthetic.main.item_title.view.*
@@ -99,6 +101,11 @@ class MyPageAdapter(
             is FavoriteHolder -> with(holder) {
                 val busLine = list[position] as BusLine
                 tvBusLineName.text = busLine.busLineName
+                if (busLine.type == Type.GO_OFFICE) {
+                    tvBusLineName.setTextColor(ContextCompat.getColor(context!!, android.R.color.holo_red_dark))
+                } else {
+                    tvBusLineName.setTextColor(ContextCompat.getColor(context!!, android.R.color.holo_blue_dark))
+                }
                 tvBusStart.text = "${busLine.busStops[0].busStopName} ${context!!.resources.getString(R.string.start)}"
 
                 ivStar.setImageResource(R.drawable.ic_star_selected)
