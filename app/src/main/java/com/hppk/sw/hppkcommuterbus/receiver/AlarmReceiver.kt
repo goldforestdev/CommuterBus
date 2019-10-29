@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.preference.PreferenceManager
+import com.google.gson.Gson
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.commons.getTomorrowAlarmTime
 import com.hppk.sw.hppkcommuterbus.commons.isHoliday
@@ -62,7 +63,7 @@ class AlarmReceiver : BroadcastReceiver() {
             return
         }
 
-        val busStop = intent.getParcelableExtra<BusStop>(KEY_ALARM_BUS_STOP)
+        val busStop = Gson().fromJson(intent.getStringExtra(KEY_ALARM_BUS_STOP), BusStop::class.java)
         NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_office_time, busStop.busStopName, minute))
         registerNextAlarm(busStop, context, time.toLong())
     }

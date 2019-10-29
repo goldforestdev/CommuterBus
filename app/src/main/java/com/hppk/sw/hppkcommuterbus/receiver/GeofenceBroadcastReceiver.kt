@@ -6,6 +6,7 @@ import android.content.Intent
 import android.util.Log
 import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingEvent
+import com.google.gson.Gson
 import com.hppk.sw.hppkcommuterbus.R
 import com.hppk.sw.hppkcommuterbus.commons.isHoliday
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
@@ -28,7 +29,7 @@ class GeofenceBroadcastReceiver : BroadcastReceiver() {
         }
 
         if (geofencingEvent.geofenceTransition == Geofence.GEOFENCE_TRANSITION_ENTER) {
-            val busStop = intent.getParcelableExtra<BusStop>(KEY_ALARM_BUS_STOP)
+            val busStop = Gson().fromJson(intent.getStringExtra(KEY_ALARM_BUS_STOP), BusStop::class.java)
             NotiManager.notify(context, context.getString(R.string.bus_alarm), context.getString(R.string.bus_alarm_go_home_distance, busStop.busStopName))
         }
     }

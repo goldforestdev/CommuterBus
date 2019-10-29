@@ -9,6 +9,7 @@ import com.google.android.gms.location.Geofence
 import com.google.android.gms.location.GeofencingClient
 import com.google.android.gms.location.GeofencingRequest
 import com.google.android.gms.location.LocationServices
+import com.google.gson.Gson
 import com.hppk.sw.hppkcommuterbus.data.model.BusStop
 import com.hppk.sw.hppkcommuterbus.receiver.AlarmReceiver
 import com.hppk.sw.hppkcommuterbus.receiver.GeofenceBroadcastReceiver
@@ -16,7 +17,8 @@ import com.hppk.sw.hppkcommuterbus.receiver.KEY_ALARM_BUS_STOP
 
 
 class BusAlarmManager(
-    private val context: Context
+    private val context: Context,
+    private val gson: Gson = Gson()
 ) {
 
     private val TAG = BusAlarmManager::class.java.simpleName
@@ -27,7 +29,8 @@ class BusAlarmManager(
 
     fun register(alarmId: Int, busStop: BusStop, time: Long) {
         val intent = Intent(context, AlarmReceiver::class.java)
-            .putExtra(KEY_ALARM_BUS_STOP, busStop)
+            .putExtra(KEY_ALARM_BUS_STOP, gson.toJson(busStop))
+
         val pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT)
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, time, pendingIntent)
         Log.d(TAG, "[BUS] register - alarm: $busStop")
@@ -35,7 +38,7 @@ class BusAlarmManager(
 
     fun register(alarmId: Int, busStop: BusStop) {
         val intent = Intent(context, GeofenceBroadcastReceiver::class.java)
-        intent.putExtra(KEY_ALARM_BUS_STOP, busStop)
+        intent.putExtra(KEY_ALARM_BUS_STOP, gson.toJson(busStop))
 
         val geofence = Geofence.Builder()
             .setRequestId(busStop.name)
