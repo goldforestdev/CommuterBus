@@ -21,6 +21,7 @@ import com.hppk.sw.hppkcommuterbus.data.repository.AlarmRepository
 import com.hppk.sw.hppkcommuterbus.data.repository.FavoriteRepository
 import com.hppk.sw.hppkcommuterbus.data.repository.source.local.PrefAlarmDao
 import com.hppk.sw.hppkcommuterbus.data.repository.source.local.PrefFavoriteDao
+import com.hppk.sw.hppkcommuterbus.manager.BusAlarmManager
 import com.hppk.sw.hppkcommuterbus.ui.MainActivity
 import com.hppk.sw.hppkcommuterbus.ui.details.BUS_LINE
 import com.hppk.sw.hppkcommuterbus.ui.details.LineDetailsActivity
@@ -33,7 +34,8 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
         val pref = PreferenceManager.getDefaultSharedPreferences(context)
         MyPagePresenter(this,
             AlarmRepository(PrefAlarmDao(pref)),
-            FavoriteRepository(PrefFavoriteDao(pref))
+            FavoriteRepository(PrefFavoriteDao(pref)),
+            BusAlarmManager(activity!!)
         )
     }
     private lateinit var myPageAdapter: MyPageAdapter
@@ -200,6 +202,7 @@ class MyPageFragment : Fragment(), MyPageContract.View, MyPageAdapter.BusLineCli
             }
             myPageAdapter.notifyDataSetChanged()
             presenter.saveAlarms(alarmBusLineList)
+            presenter.unregisterAlarm(busStop)
 
             checkEmptyView()
         }

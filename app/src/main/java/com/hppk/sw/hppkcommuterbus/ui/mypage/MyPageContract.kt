@@ -15,5 +15,6 @@ interface MyPageContract {
         fun loadData()
         fun saveAlarms(alarms: MutableList<BusStop>)
         fun saveFavorites(favorites: List<BusLine>)
+        fun unregisterAlarm(busStop: BusStop)
     }
 }
