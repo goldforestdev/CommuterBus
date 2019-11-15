@@ -39,4 +39,6 @@
     <string name="developers">개발자 정보</string>
     <string name="dev_hjkim">김 형주</string>
     <string name="dev_yhkim">김 윤호</string>
+
+    <string name="even_notice">HPPK 통근버스 </string>
 </resources>

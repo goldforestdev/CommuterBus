@@ -5,6 +5,7 @@
     <string name="key_feedback" translatable="false">key_feedback</string>
     <string name="key_version" translatable="false">key_version</string>
     <string name="key_developers" translatable="false">key_developers</string>
+    <string name="default_notification_channel_id" tanslatable="false">hppk commuterBus</string>
 
     <string name="app_name">HPPK Commuter Bus</string>
     <string name="splash_bottom_text" translatable="false">Copyright<![CDATA[ⓒ]]> 2019 Gold Forest Team.</string>
@@ -50,4 +51,6 @@
     <string name="dev_yhkim">Yoonho Aarom Kim</string>
     <string name="dev_yhkim_email" translatable="false">yoonho.kim@hp.com</string>
     <string name="bus_stops">Bus Stop List</string>
+
+    <string name="even_notice">HPPK CommuterBus</string>
 </resources>
